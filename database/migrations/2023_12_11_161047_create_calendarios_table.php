@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('calendarios', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->foreignId('actividad_id')->nullable()->constrained();
-            $table->foreignId('monitor_id')->nullable()->constrained();
+            $table->foreignId('actividade_id')->nullable()->constrained();
+            $table->foreignId('monitore_id')->nullable()->constrained();
             $table->foreignId('reserva_id')->nullable()->constrained();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->integer('plazas');
+            $table->timestamps();
+            
 
         });
     }

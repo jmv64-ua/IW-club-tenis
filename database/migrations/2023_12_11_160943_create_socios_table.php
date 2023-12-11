@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('socios', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            // En el método up() de cada migración de roles
+        
             $table->foreignId('user_id')->constrained();
+            
+            $table->boolean('bloqueado')->default(false);
+            $table->timestamps();
+            
         });
     }
 

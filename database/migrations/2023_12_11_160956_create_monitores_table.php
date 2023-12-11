@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('monitores', function (Blueprint $table) {
             $table->id();
+            $table->string('descripcion');
+            
+            
             $table->timestamps();
-            // En el método up() de cada migración de roles
-            $table->foreignId('user_id')->constrained();
-            // En el método up() de la migración 'monitores'
-            $table->foreignId('calendario_id')->nullable()->constrained();
+            
+            
 
         });
     }

@@ -16,8 +16,11 @@ return new class extends Migration
         Schema::create('instalaciones', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-                // En el método up() de la migración 'instalaciones'
             $table->foreignId('reserva_id')->nullable()->constrained();
+            $table->string('tipo_instalacion');
+            $table->integer('aforo');
+               
+           
 
         });
     }

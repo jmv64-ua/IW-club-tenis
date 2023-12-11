@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('telefono');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreignId('reserva_id')->nullable()->constrained();
+            
         });
         
     }
