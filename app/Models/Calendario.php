@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Calendario extends Model
-{
+{   
+    protected $table = 'calendarios';
     use HasFactory;
     public function actividad()
     {

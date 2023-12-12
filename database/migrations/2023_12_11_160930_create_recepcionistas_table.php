@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('recepcionistas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             // En el método up() de cada migración de roles
-            $table->foreignId('user_id')->constrained();
+            
         });
     }
 

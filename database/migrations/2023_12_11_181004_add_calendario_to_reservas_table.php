@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('reservas', function (Blueprint $table) {
-            $table->foreignId('calendario_id')->nullable()->constrained();
+            $table->foreignId('calendario_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 
@@ -26,6 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('reservas', function (Blueprint $table) {
+            $table->dropForeign(['calendario_id']);
             $table->dropColumn('calendario_id');
         });
     }

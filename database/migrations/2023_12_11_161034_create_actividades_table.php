@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('instalacione_id')->nullable()->constrained();
+            $table->foreignId('instalacion_id')->nullable()->constrained('instalaciones')->onDelete('cascade');
             $table->string('nombre');
             $table->decimal('precio', 10, 2);
             $table->text('descripcion');

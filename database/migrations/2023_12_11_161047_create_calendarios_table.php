@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('calendarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('actividade_id')->nullable()->constrained();
-            $table->foreignId('monitore_id')->nullable()->constrained();
-            $table->foreignId('reserva_id')->nullable()->constrained();
+            $table->foreignId('actividad_id')->nullable()->constrained('actividades')->onDelete('cascade');
+            $table->foreignId('monitor_id')->nullable()->constrained('monitores')->onDelete('cascade');
+            $table->foreignId('reserva_id')->nullable()->constrained('reservas')->onDelete('cascade');
             $table->date('fecha');
             $table->time('hora');
             $table->integer('plazas');

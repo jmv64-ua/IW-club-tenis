@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('instalaciones', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->foreignId('reserva_id')->nullable()->constrained();
             $table->string('tipo_instalacion');
             $table->integer('aforo');
+            $table->foreignId('reserva_id')->nullable()->constrained('reservas')->onDelete('cascade');
+            $table->timestamps();
+            
                
            
 

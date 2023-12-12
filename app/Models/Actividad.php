@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Actividad extends Model
 {
     use HasFactory;
+    protected $table = 'actividades';
     // En el modelo 'Actividad'
     public function instalacion()
     {

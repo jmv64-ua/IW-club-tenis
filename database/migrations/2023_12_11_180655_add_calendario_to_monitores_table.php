@@ -10,19 +10,18 @@ return new class extends Migration
     {
         // Eliminar la restricción de clave foránea
         Schema::table('monitores', function (Blueprint $table) {
-            $table->dropForeign(['calendario_id']);
+            $table->foreignId('calendario_id')->nullable()->constrained('calendarios')->onDelete('cascade');
         });
-
-        // Eliminar la columna
-        Schema::table('monitores', function (Blueprint $table) {
-            $table->dropColumn('calendario_id');
-        });
+        
+        
     }
 
     public function down()
     {
+        // Eliminar la columna
         Schema::table('monitores', function (Blueprint $table) {
-            $table->foreignId('calendario_id')->nullable()->constrained();
+            $table->dropForeign(['calendario_id']);
+            $table->dropColumn('calendario_id');
         });
     }
 };
