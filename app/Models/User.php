@@ -47,4 +47,13 @@ class User extends Authenticatable
         return $this->hasMany(Reserva::class);
     }
 
+    public function administrador()
+    {
+        return $this->hasMany(Administrador::class);
+    }
+
+    public function monitor()
+    {
+        return $this->hasMany(Administrador::class);
+    }
 }

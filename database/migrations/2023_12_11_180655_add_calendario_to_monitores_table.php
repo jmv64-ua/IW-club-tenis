@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
+        // Eliminar la restricción de clave foránea
         Schema::table('monitores', function (Blueprint $table) {
-            $table->foreignId('calendario_id')->nullable()->constrained();
+            $table->dropForeign(['calendario_id']);
+        });
+
+        // Eliminar la columna
+        Schema::table('monitores', function (Blueprint $table) {
+            $table->dropColumn('calendario_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('monitores', function (Blueprint $table) {
-            $table->dropColumn('calendario_id');
+            $table->foreignId('calendario_id')->nullable()->constrained();
         });
     }
 };

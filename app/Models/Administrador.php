@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administrador extends Model
 {
+    
     use HasFactory;
      // En cada modelo de rol (Administrador, Recepcionista, Socio, Monitor)
      public function user()
