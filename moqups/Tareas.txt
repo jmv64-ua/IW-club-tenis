@@ -1,0 +1,21 @@
+-HOME
+Se necesita que aparezca el menu para compartirlo todas las páginas, una foto 
+de una instalación con texto que al pincharala te lleve a instalaciones (listado)
+debajo de esta gran foto lo mismo que antes pero con actividades, otra gran foto
+para lo de los monitores y nos lleve a listado de ver monitores y debajo del todo
+el hazte socio del mocqup
+-MONITORES y ver Detalles de monitores
+mocqup 
+-Actividades y ver Detalles de Actividades
+Mocqups
+-Reservas de actividades y pistas
+Mocqups 
+-Registro y Login
+moscups
+-VISTAS DE ADMIN
+--Crud de las actividades para asignarlas a x horas en alguna instalación con un monitore
+--Validar/bloquear usuarios
+--Bloquear instalaciones
+--informes de los Mocqups
+-- Crud de las entidades
+
