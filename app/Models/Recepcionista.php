@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recepcionista extends Model
 {
     use HasFactory;
-    protected $table = 'Recepcionistas';
+    protected $table = 'recepcionistas';
      // En cada modelo de rol (Administrador, Recepcionista, Socio, Monitor)
      public function user()
      {
