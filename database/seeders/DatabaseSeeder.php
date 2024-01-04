@@ -54,10 +54,10 @@ class DatabaseSeeder extends Seeder
         $recepcionista->save();
 
         // INSTALACION
-        $instalacion = new Instalacion([
-            'tipo_instalacion' => 'Pista de tenis',
-            'aforo' => 8,
-        ]);
+        $instalacion = new Instalacion();
+        $instalacion->tipo_instalacion= "Pista de tenis";
+        $instalacion->aforo= 8;
+        $instalacion->urlphoto= null;
         $instalacion->save();
     }
 }
