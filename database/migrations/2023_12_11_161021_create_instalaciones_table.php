@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('tipo_instalacion');
             $table->integer('aforo');
+            $table->string('urlphoto');
             $table->foreignId('reserva_id')->nullable()->constrained('reservas')->onDelete('cascade');
             $table->timestamps();
             
