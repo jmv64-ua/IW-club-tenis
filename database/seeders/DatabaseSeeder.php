@@ -10,6 +10,7 @@ use App\Models\Administrador;
 use App\Models\Socio;
 use App\Models\Recepcionista;
 use App\Models\Instalacion;
+use App\Models\Actividad;
 
 class DatabaseSeeder extends Seeder
 {
@@ -59,5 +60,21 @@ class DatabaseSeeder extends Seeder
         $instalacion->aforo= 8;
         $instalacion->urlphoto= null;
         $instalacion->save();
+
+        Actividad::create([
+            'instalacion_id' => 1,
+            'nombre' => 'Actividad 1',
+            'precio' => 20.00,
+            'descripcion' => 'Descripción de la Actividad 1',
+            'urlphoto' => 'ruta/a/la/foto1.jpg',
+        ]);
+
+        Actividad::create([
+            'instalacion_id' => 1,
+            'nombre' => 'Actividad 2',
+            'precio' => 25.00,
+            'descripcion' => 'Descripción de la Actividad 2',
+            'urlphoto' => 'ruta/a/la/foto2.jpg',
+        ]);
     }
 }

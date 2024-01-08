@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+ use App\Http\Controllers\ActividadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/actividades',[ActividadController::class, 'index2'])->name('players');
+Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('actividaes');
