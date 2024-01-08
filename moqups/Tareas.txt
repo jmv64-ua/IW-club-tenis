@@ -13,9 +13,25 @@ Mocqups
 -Registro y Login
 moscups
 -VISTAS DE ADMIN
---Crud de las actividades para asignarlas a x horas en alguna instalación con un monitore
---Validar/bloquear usuarios
---Bloquear instalaciones
---informes de los Mocqups
--- Crud de las entidades
+
+
+
+AGRUPACIón1
+--Crud de las actividades para luego en el calendario asignarlas- 1.5
+--Crud de las instalaciones para luego en el calendario asignarlass o a una actividad-1.5
+--Validar/bloquear usuarios-1
+-----------------------------------------------------------------------------------------
+--Crud de usuarios y q se pueda asig2nar un tipo de usuario-1.5
+--Recepcionista que pueda dar de alta-0.5
+--Monitor ver sus clases que tiene que dar-2
+-----------------------------------------------------------------------------------------
+--calendario de ADMIN-32
+--asignar actividad al darle al + en calendario ADMIN-1
+--Bloquear instalaciones-1
+-----------------------------------------------------------------------------------------
+--informes de los Mocqups-2
+--Pestaña para reserva de un socio para instalaciones y clases-2
+
+
+
 
