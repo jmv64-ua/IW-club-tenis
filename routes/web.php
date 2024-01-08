@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/actividades',[ActividadController::class, 'index2'])->name('players');
+Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/monitores', [MonitorController::class , 'monitores'])->name('monitores.list');
