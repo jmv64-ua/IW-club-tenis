@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('codigo_postal');
             $table->string('telefono');
-            $table->boolean('Validado')->default(false);
+            $table->boolean('Validado');
             $table->rememberToken();
             $table->timestamps();
             
