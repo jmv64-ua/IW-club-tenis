@@ -65,16 +65,16 @@ class DatabaseSeeder extends Seeder
             'instalacion_id' => 1,
             'nombre' => 'Actividad 1',
             'precio' => 20.00,
-            'descripcion' => 'Descripción de la Actividad 1',
-            'urlphoto' => 'ruta/a/la/foto1.jpg',
+            'descripcion' => 'Clases de natación para todos los públicos en distintos horarios',
+            'urlphoto' => 'natacion.png',
         ]);
 
         Actividad::create([
             'instalacion_id' => 1,
-            'nombre' => 'Actividad 2',
+            'nombre' => 'Tenis',
             'precio' => 25.00,
-            'descripcion' => 'Descripción de la Actividad 2',
-            'urlphoto' => 'ruta/a/la/foto2.jpg',
+            'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
+            'urlphoto' => 'tenis.png',
         ]);
     }
 }

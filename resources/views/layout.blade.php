@@ -1,70 +1,87 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{{ config('app.name', 'FutNew') }}</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-                background-image: url("/assets/fondo.png");
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-                }
-        </style>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'FutNew') }}</title>
-    </head>
+    <!-- Custom Styles -->
+    <style>
+        body {
+            margin-top: 20px;
+            font-family: 'Nunito', sans-serif;
+            background-image: url("/assets/fondo.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-    <body >
+        .navbar {
+            background-color: #6eece8; /* Cambia el color de fondo de la barra de navegación según tus preferencias */
+        }
 
-        <nav >
-            <div >
-                <div >
+        .navbar img {
+            max-width: 40px; /* Establece un ancho máximo para la imagen del usuario en la barra de navegación */
+            border-radius: 50%; /* Añade un borde redondeado a la imagen del usuario */
+            margin-right: 10px; /* Añade un margen derecho para separar la imagen del botón */
+        }
+    </style>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}">FutNew</a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-sticky" aria-controls="navbar-sticky" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar-sticky">
+                <ul class="navbar-nav ml-auto">
                     @guest
-                    <button type="button" onClick=window.location.href='{{ url('/login') }}' >Login</button>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                        </li>
                     @endguest
+
                     @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" >LogOut</button>
-                   
-                    </form>
-                    @if(Auth::check())
-                    <div >
-                        <a href="{{url('/user/')}}">
-                            <img   src="{{asset(Auth::user()->picture) }}" alt="Descripción de la imagen">
-                            <button>Botón</button>
-                        </a>
-                    </div>
-                    @endif
-                    
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-link">Logout</button>
+                            </form>
+                        </li>
+
+                        @if(Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/user/') }}">
+                                    <img src="{{ asset(Auth::user()->picture) }}" alt="User Image">
+                                    <button class="btn btn-link">Profile</button>
+                                </a>
+                            </li>
+                        @endif
                     @endauth
-                    
-                    <button data-collapse-toggle="navbar-sticky" type="button"  aria-controls="navbar-sticky" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                    </button>
-                </div>
-                
+                </ul>
             </div>
-        </nav>
-
-        <div>
-            @yield('content')
         </div>
+    </nav>
 
+    <div class="container mt-4">
+        @yield('content')
+    </div>
 
-
-
-
-    </body>
+    <!-- Bootstrap JS (popper.js included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

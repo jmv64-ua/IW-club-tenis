@@ -19,4 +19,13 @@ class ActividadController extends Controller
             'actividades' => $actividades
         ]);
     }
+    public function Actividad($id){
+        $query = Actividad::find($id);
+
+        
+
+        return view ('actividad',[
+            'actividad' => $query
+        ]);
+    }
 }
