@@ -17,13 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('tipo_instalacion');
             $table->integer('aforo');
+            $table->boolean('bloqueado')->default(false);
             $table->string('urlphoto')->nullable();
-            $table->foreignId('reserva_id')->nullable()->constrained('reservas')->onDelete('cascade');
             $table->timestamps();
-            
-               
-           
-
         });
     }
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('fecha_alta');
             $table->dateTime('fecha_reserva');
+            $table->foreignId('instalacion_id')->nullable()->constrained('instalaciones')->onDelete('cascade');
             $table->timestamps();
             
            

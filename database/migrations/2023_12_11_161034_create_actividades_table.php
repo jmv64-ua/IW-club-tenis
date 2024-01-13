@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->decimal('precio', 10, 2);
             $table->text('descripcion');
+            $table->date('fecha');
+            $table->time('hora');
             $table->string('urlphoto')->nullable();
             $table->timestamps();
             
