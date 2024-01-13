@@ -19,5 +19,9 @@ class Reserva extends Model
     {
         return $this->belongsTo(Calendario::class)->nullable();
     }
+    public function instalacion()
+    {
+        return $this->belongsTo(Instalacion::class)->nullable();
+    }
 
 }

@@ -12,7 +12,7 @@ class Actividad extends Model
     // En el modelo 'Actividad'
     public function instalacion()
     {
-        return $this->belongsTo(Instalacion::class)->nullable();
+        return $this->belongsTo(Instalacion::class);
     }
 
 }

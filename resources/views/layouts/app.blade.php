@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     <!-- Scripts -->
-    @vite(['resources/js/app.js'])
+   <!-- @vite(['resources/js/app.js'])-->
 </head>
 <body>
     <div id="app">

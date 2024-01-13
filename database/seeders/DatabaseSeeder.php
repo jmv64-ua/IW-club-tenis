@@ -11,6 +11,7 @@ use App\Models\Socio;
 use App\Models\Recepcionista;
 use App\Models\Instalacion;
 use App\Models\Actividad;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
         // Deshabilitar las restricciones de clave externa para eliminar datos en el orden correcto
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
@@ -65,6 +67,8 @@ class DatabaseSeeder extends Seeder
             'instalacion_id' => 1,
             'nombre' => 'Actividad 1',
             'precio' => 20.00,
+            'fecha' => $faker->date,
+            'hora' => $faker->time,
             'descripcion' => 'Clases de natación para todos los públicos en distintos horarios',
             'urlphoto' => 'natacion.png',
         ]);
@@ -73,6 +77,8 @@ class DatabaseSeeder extends Seeder
             'instalacion_id' => 1,
             'nombre' => 'Tenis',
             'precio' => 25.00,
+            'fecha' => $faker->date,
+            'hora' => $faker->time,
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
         ]);
