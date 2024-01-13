@@ -6,6 +6,9 @@ use App\Http\Controllers\InstalacionController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\LoginController; // Importar el controlador LoginController
 use App\Http\Controllers\Auth\RegisterController; // Importar el controlador RegisterController
+use App\Http\Controllers\MonitorController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------

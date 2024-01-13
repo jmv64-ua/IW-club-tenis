@@ -35,7 +35,15 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         // Crea tres usuarios
-        $users = User::factory(6)->create();
+        // Crea tres usuarios con el campo 'Validado' establecido en true
+        // Crea tres usuarios con el campo 'Validado' establecido en true
+        $users = User::factory(6)->create([
+            'name'     => 'username',
+            'password' => '123',
+            'Validado' => true,
+        ]);
+
+
 
         // UN ADMIN
         $admin = new Administrador();
