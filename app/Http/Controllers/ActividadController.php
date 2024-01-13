@@ -19,6 +19,15 @@ class ActividadController extends Controller
             'actividades' => $actividades
         ]);
     }
+    public function ActividadesCalendario(){
+        $query = Actividad::query();
+
+        $actividades = $query->paginate(5);
+
+        return view ('calendarioadmin',[
+            'actividades' => $actividades
+        ]);
+    }
     public function Actividad($id){
         $query = Actividad::find($id);
 

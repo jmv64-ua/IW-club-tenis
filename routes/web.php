@@ -23,6 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
+Route::get('/actividadesCalendario',[ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
 Route::get('/monitores', [MonitorController::class , 'monitores'])->name('monitores.list');
 Route::get('/actividad/{id}',[ActividadController::class, 'Actividad'])->name('Actividad');
 Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('instalaciones.index');
