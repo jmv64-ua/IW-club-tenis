@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         // Crear otros usuarios de ejemplo con roles diferentes
         User::factory()->count(5)->create();
 
+
         // INSTALACION
         $instalacion = new Instalacion();
         $instalacion->tipo_instalacion= "Pista de tenis";
