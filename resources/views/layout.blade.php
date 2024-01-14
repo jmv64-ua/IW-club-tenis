@@ -9,6 +9,9 @@
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <link href="{{ asset('css/styles-welcome.css') }}" rel="stylesheet">
+
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,15 +26,30 @@
             background-attachment: fixed;
         }
 
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff; /* Cambiado el color del texto a blanco */
+        }
+
         .navbar {
-            background-color: #6eece8; /* Cambia el color de fondo de la barra de navegación según tus preferencias */
+        background-color: #155724; /* Cambia el color de fondo de la barra de navegación según tus preferencias */
         }
 
         .navbar img {
-            max-width: 40px; /* Establece un ancho máximo para la imagen del usuario en la barra de navegación */
-            border-radius: 50%; /* Añade un borde redondeado a la imagen del usuario */
-            margin-right: 10px; /* Añade un margen derecho para separar la imagen del botón */
+            max-width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
+
+        .navbar-nav .nav-link {
+            color: #fff; /* Cambiado el color del texto a blanco */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff; /* Cambiado el color del ícono del botón de navegación a blanco */
+        }
+        
     </style>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -49,9 +67,22 @@
 
             <div class="collapse navbar-collapse" id="navbar-sticky">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/monitores') }}">Monitores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
+                    </li>
+                    
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/register') }}">Register</a>
                         </li>
                     @endguest
 
