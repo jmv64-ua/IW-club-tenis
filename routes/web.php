@@ -30,6 +30,7 @@ Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('ins
 Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name('instalaciones.show');
 Route::put('/instalaciones/{id}', [InstalacionController::class, 'bloquear'])->name('instalaciones.bloquear');
 Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
+Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 Route::middleware(['auth', 'admin'])->group(function () {
     // Agregar rutas de CRUD para usuarios aquí
     Route::resource('/admin/users', AdminUserController::class);

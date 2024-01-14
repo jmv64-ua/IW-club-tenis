@@ -24,8 +24,19 @@ class ActividadController extends Controller
 
         $actividades = $query->paginate(5);
 
+        $allactivities =[];
+        foreach ($actividades as $actividad){
+            $allactivities[]=[
+                'title' => $actividad->nombre,
+                'start' =>  $actividad->fechaI,
+                'end' => $actividad->fechaFin,
+
+
+            ];
+        };
+
         return view ('calendarioadmin',[
-            'actividades' => $actividades
+            'actividades' => $allactivities
         ]);
     }
     public function Actividad($id){
@@ -37,4 +48,18 @@ class ActividadController extends Controller
             'actividad' => $query
         ]);
     }
+        // En tu controlador
+    public function AsignarActividad(Request $request) {
+        // Obtén la fecha de la cadena de consulta
+        $fecha = $request->input('fecha');
+
+        // Haz lo que necesites con la fecha (puedes realizar operaciones adicionales o redirigir a otra vista)
+        // ...
+
+        // Ejemplo de redirección a una vista
+        return view ('actividadAsignar',[
+            'fecha' => $fecha
+        ]);
+    }
+
 }

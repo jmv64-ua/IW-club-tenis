@@ -1,52 +1,34 @@
 @extends('layout')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario de Actividades</title>
-
-    <!-- FullCalendar CSS -->
-    <!-- FullCalendar CSS -->
-<link rel="stylesheet" href="{{ asset('node_modules/@fullcalendar/core/main.css') }}">
-<link rel="stylesheet" href="{{ asset('node_modules/@fullcalendar/daygrid/main.css') }}">
-
-</head>
-<body>
-
-    <div id="calendario"></div>
-
-    <!-- FullCalendar JS -->
-    <!-- FullCalendar JS -->
-<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('node_modules/@fullcalendar/core/main.js') }}"></script>
-<script src="{{ asset('node_modules/@fullcalendar/daygrid/main.js') }}"></script>
 
 
+    <div id="calendar"></div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendario');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid'],
-                events: [
-                    @foreach($actividades as $actividad)
-                        {
-                            title: '{{ $actividad->nombre }}',
-                            start: '{{ $actividad->fecha }}T{{ $actividad->hora }}',
-                            // Otros campos necesarios
-                        },
-                    @endforeach
-                ]
-            });
-
-            calendar.render();
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            slotMinTime:'07:00',
+            slotMaxTime:'22:00',
+            
+            events:@json($actividades),
+            dateClick: function (info) {
+                // info.date contiene la fecha y hora de la celda clicada
+                // Puedes redirigir a otra página aquí
+                window.location.href = '/actividadNew/nueva?fecha=' + info.date.toISOString();
+            }
+          });
+          calendar.render();
         });
-    </script>
+  
+      </script>
 
-</body>
-</html>
+
 
 @endsection
+
+@push('scripts')
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+@endpush

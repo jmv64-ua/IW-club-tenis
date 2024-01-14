@@ -23,11 +23,16 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('codigo_postal');
             $table->string('telefono');
+            $table->enum('rol', ['administrador', 'socio', 'monitor','recepcionista'])->default('socio');
             $table->boolean('Validado')->default(false);
+            $table->string('descripcion')->nullable();;
+            $table->boolean('bloqueado')->default(false);
+            $table->string('resumen')->nullable();
+            $table->string('urlphoto')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
         });
+        
         
     }
 

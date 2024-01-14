@@ -80,6 +80,7 @@
     <div class="container mt-4">
         @yield('content')
     </div>
+    @stack('scripts')
 
     <!-- Bootstrap JS (popper.js included) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

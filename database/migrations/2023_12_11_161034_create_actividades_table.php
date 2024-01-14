@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instalacion_id')->nullable()->constrained('instalaciones')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('nombre');
             $table->decimal('precio', 10, 2);
             $table->text('descripcion');
-            $table->date('fecha');
-            $table->time('hora');
+            $table->datetime('fechaI');
+            $table->datetime('fechaFin');
             $table->string('urlphoto')->nullable();
             $table->timestamps();
             
