@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/actividadesCalendario',[ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+
 Route::get('/monitores', [MonitorController::class , 'monitores'])->name('monitores.list');
 Route::get('/actividad/{id}',[ActividadController::class, 'Actividad'])->name('Actividad');
 Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('instalaciones.index');
@@ -34,6 +35,7 @@ Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name(
 Route::put('/instalaciones/{id}', [InstalacionController::class, 'bloquear'])->name('instalaciones.bloquear');
 Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
 Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
+Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::middleware(['auth', 'admin'])->group(function () {
     // Agregar rutas de CRUD para usuarios aquí
     Route::resource('/admin/users', AdminUserController::class);
