@@ -45,6 +45,22 @@ class DatabaseSeeder extends Seeder
             'urlphoto' => 'url/photo/admin.jpg',
         ]);
 
+        User::create([
+            'name' => 'Monitor',
+            'email' => 'monitor@example.com',
+            'password' => Hash::make('password'),
+            'saldo' => 100.00,
+            'direccion' => 'Dirección del monitor',
+            'codigo_postal' => '12345',
+            'telefono' => '123-456-7890',
+            'rol' => 'monitor',
+            'Validado' => true,
+            'descripcion' => 'Descripción del monitor',
+            'bloqueado' => false,
+            'resumen' => 'Resumen del monitor',
+            'urlphoto' => 'monitor.png',
+        ]);
+
         // Crear otros usuarios de ejemplo con roles diferentes
         User::factory()->count(5)->create();
 
