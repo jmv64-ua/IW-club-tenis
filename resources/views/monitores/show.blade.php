@@ -1,11 +1,22 @@
 @extends('layout')
 
 @section('content')
-    <h1>Detalles de {{ $monitor->name }}</h1>
+    <h2>Información sobre {{ $monitor->name }}</h2>
     
-    <p>Nombre: {{ $monitor->name }}</p>
+    <p>{{ $monitor->descripcion }}</p>
+    
+    <p>
+        <h2>Información extra</h2>
+    </p>
     <p>Email: {{ $monitor->email }}</p>
-    <!-- Agrega más detalles según tus necesidades -->
 
-    <a href="{{ route('monitores.index') }}">Volver al listado de monitores</a>
+    <a class="btn btn-primary" href="{{ route('monitores.index') }}">Volver al listado</a>
+
+<style>
+    .image {
+        border-radius: 50%;
+        max-width: 20%;
+        max-height: 20%;
+    }
+</style>
 @endsection
