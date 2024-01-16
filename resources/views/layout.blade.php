@@ -7,7 +7,7 @@
     <title>{{ config('app.name', 'FutNew') }}</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
     <link href="{{ asset('css/styles-welcome.css') }}" rel="stylesheet">
 
@@ -65,11 +65,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbar-sticky">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">Home</a>
-                    </li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbar-sticky">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/monitores') }}">Monitores</a>
                     </li>
