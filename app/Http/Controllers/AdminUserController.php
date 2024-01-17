@@ -42,6 +42,15 @@ class AdminUserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+    public function validar($id) {
+        $user = User::findOrFail($id);
+        
+        $user->Validado = true;
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'Usuario validado correctamente.');
+    }
+
     public function update(Request $request, $id)
     {
         $this->validateUser($request, $id);

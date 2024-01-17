@@ -10,8 +10,8 @@
 
     <div class="row mt-3">
         <div class="col">
-            <table class="table">
-                <thead>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th>Foto</th>
                         <th>Nombre</th>
