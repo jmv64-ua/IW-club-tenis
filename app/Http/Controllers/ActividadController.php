@@ -48,17 +48,26 @@ class ActividadController extends Controller
             'actividad' => $query
         ]);
     }
-        // En tu controlador
-    public function AsignarActividad(Request $request) {
+        // Recibe la petición con los campos del formulario (fecha y plazas) y el ID de la actividad.
+    public function AsignarActividad(Request $request, $id) {
         // Obtén la fecha de la cadena de consulta
-        $fecha = $request->input('fecha');
+        $fecha = $request->fecha;
+        $plazas = $request->plazas;
 
-        // Haz lo que necesites con la fecha (puedes realizar operaciones adicionales o redirigir a otra vista)
-        // ...
+        $actividad = Actividad::find($id);
+
+        $calendario = Calendario::create([
+            'actividad_id' => $actividad->id,
+            'user_id' => $actividad->user_id,
+            'fecha' => $fecha,
+            'plazas' => $plazas,
+        ]);
+        
+        $actividades = Actividad::all();
 
         // Ejemplo de redirección a una vista
-        return view ('actividadAsignar',[
-            'fecha' => $fecha
+        return view ('calendarioadmin',[
+            'actividades' => $actividades
         ]);
     }
 
