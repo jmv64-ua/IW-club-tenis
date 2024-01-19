@@ -9,6 +9,7 @@ use App\Models\Instalacion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ActividadController extends Controller
 {
@@ -22,9 +23,9 @@ class ActividadController extends Controller
         ]);
     }
     public function ActividadesCalendario(){
-        $query = Actividad::query();
+        $query = Actividad::All();
 
-        $actividades = $query->paginate(5);
+        $actividades = $query;
 
         $allactivities =[];
         foreach ($actividades as $actividad){
@@ -110,12 +111,19 @@ class ActividadController extends Controller
 
         // Convierte el string a un objeto Carbon
         $carbonFechaHoraI = Carbon::parse($fechaHoraString);
+        $carconFechaHoraAcambiar = Carbon::parse($fechaHoraString);
+        
+        $actividad->fechaI=$carbonFechaHoraI;
 
         // Obtén la duración del formulario (en horas)
         $duracion = $request->input('duracion');
+       // dd('El valor de la variable es: ' . $duracion);
+
 
         // Suma la duración al objeto Carbon
-        $carbonFechaHoraFin = $carbonFechaHoraI->addHours($duracion);
+        $carbonFechaHoraFin = $carconFechaHoraAcambiar->addHours($duracion);
+        //dd('El valor de la variable es: ' . $carbonFechaHoraFin);
+        $actividad->fechaFin=$carbonFechaHoraFin;
         
     
         if ($validator->fails()) {
@@ -129,23 +137,23 @@ class ActividadController extends Controller
             
             $imagen = $request->file("imagen");
             $nombreimagen = Str::slug($request->name).".".$imagen->guessExtension();
-            $ruta = public_path("actividades/");
+            $ruta = public_path("actividadesFotos/");
 
             //$imagen->move($ruta,$nombreimagen);
             copy($imagen->getRealPath(),$ruta.$nombreimagen);
             
 
-            $actividad->urlphoto ="actividades/".$nombreimagen;
+            $actividad->urlphoto ="actividadesFotos/".$nombreimagen;
         }
         
-        $actividad->fechaI=$carbonFechaHoraI;
-        $actividad->fechaFin=$carbonFechaHoraFin;
+        
+        
         
         $actividad->descripcion=$request->input('Descripcion');
         $actividad->precio=$request->input('Precio');
         $actividad->user_id=$request->input('monitor');
         $actividad->instalacion_id=$request->input('instalacion');
         $actividad->save();
-        return redirect()->back()->with('mensaje', 'El objeto ha sido creado correctamente');
+        return redirect()->route('ActividadesCalendario')->with('mensaje', 'El objeto ha sido creado correctamente');
     }
 }

@@ -28,7 +28,7 @@
 
     .image {
         width: 100%;
-        height: auto;
+        height: 400px;
         display: block;
     }
 </style>
@@ -45,6 +45,7 @@
         </div>
     </div>
     @endforeach
+    {{ $actividades->links() }}
 </div>
 
 
