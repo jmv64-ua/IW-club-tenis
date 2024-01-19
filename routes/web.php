@@ -9,7 +9,6 @@ use App\Http\Controllers\Auth\RegisterController; // Importar el controlador Reg
 use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Auth;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
-Route::get('/actividadesCalendario',[ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+//Route::get('/actividadesCalendario',[ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
 Route::get('/monitores', [MonitorController::class , 'index'])->name('monitores.index');
 Route::get('/monitores/{id}', [MonitorController::class, 'show'])->name('monitores.show');
 Route::get('/actividad/{id}',[ActividadController::class, 'Actividad'])->name('Actividad');
@@ -41,9 +40,11 @@ Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.u
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');
 */
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    // Agregar rutas de CRUD para usuarios aquí
-    Route::resource('/admin/users', AdminUserController::class);
+Route::middleware(['checkRole:admin'])->group(function () {
+    // Rutas para usuarios con el rol 'admin'
+    Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+   // Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
+    //Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 });
 
 // Estas rutas ya son definidas automáticamente por Auth::routes()
