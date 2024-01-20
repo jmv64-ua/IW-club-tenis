@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Actividad;
+use App\Models\User;
+use App\Models\Instalacion;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ActividadController extends Controller
 {
@@ -20,9 +23,9 @@ class ActividadController extends Controller
         ]);
     }
     public function ActividadesCalendario(){
-        $query = Actividad::query();
+        $query = Actividad::All();
 
-        $actividades = $query->paginate(5);
+        $actividades = $query;
 
         $allactivities =[];
         foreach ($actividades as $actividad){
@@ -48,27 +51,109 @@ class ActividadController extends Controller
             'actividad' => $query
         ]);
     }
-        // Recibe la petición con los campos del formulario (fecha y plazas) y el ID de la actividad.
-    public function AsignarActividad(Request $request, $id) {
+        // En tu controlador
+    public function AsignarActividad(Request $request) {
         // Obtén la fecha de la cadena de consulta
-        $fecha = $request->fecha;
-        $plazas = $request->plazas;
+        $fecha = $request->input('fecha');
+        $monitores = User::where('rol', 'monitor')->get();
+        $instalaciones= Instalacion::All();
+        $carbonFechaHora = Carbon::parse($fecha);
+        $fecha = $carbonFechaHora->toDateString();
+        $hora = $carbonFechaHora->toTimeString();
 
-        $actividad = Actividad::find($id);
 
-        $calendario = Calendario::create([
-            'actividad_id' => $actividad->id,
-            'user_id' => $actividad->user_id,
-            'fecha' => $fecha,
-            'plazas' => $plazas,
-        ]);
-        
-        $actividades = Actividad::all();
+
+        // Haz lo que necesites con la fecha (puedes realizar operaciones adicionales o redirigir a otra vista)
+        // ...
 
         // Ejemplo de redirección a una vista
-        return view ('calendarioadmin',[
-            'actividades' => $actividades
+        return view ('actividadAsignar',[
+            'fecha' => $fecha,
+            'hora' => $hora,
+            'monitores'=> $monitores,
+            'instalaciones' =>$instalaciones
         ]);
     }
+    
 
+    public function NuevaActividad(Request $request){
+        /*if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        $admin=Auth::user()->admin;
+        if($admin ==false)
+            return redirect()->route('login');
+        */
+        $actividad = new Actividad();
+        
+       // error_log('Data received: ' . print_r($request, true));
+        
+        $validator = Validator::make($request->all(), [
+            'fecha' => 'required|date',
+            'imagen' => 'required',
+            'nombre'=>'required',
+            'Descripcion' => 'required',
+            'Precio' => 'required',
+            'monitor' => 'required',
+            'instalacion' => 'required',
+            'duracion' => 'required',
+
+
+
+            // ...
+        ]);
+        $actividad->nombre = $request->input('nombre');
+        $fecha = $request->input('fecha');
+        $hora = $request->input('hora');
+
+        // Combina la fecha y la hora en un string
+        $fechaHoraString = $fecha . ' ' . $hora;
+
+        // Convierte el string a un objeto Carbon
+        $carbonFechaHoraI = Carbon::parse($fechaHoraString);
+        $carconFechaHoraAcambiar = Carbon::parse($fechaHoraString);
+        
+        $actividad->fechaI=$carbonFechaHoraI;
+
+        // Obtén la duración del formulario (en horas)
+        $duracion = $request->input('duracion');
+       // dd('El valor de la variable es: ' . $duracion);
+
+
+        // Suma la duración al objeto Carbon
+        $carbonFechaHoraFin = $carconFechaHoraAcambiar->addHours($duracion);
+        //dd('El valor de la variable es: ' . $carbonFechaHoraFin);
+        $actividad->fechaFin=$carbonFechaHoraFin;
+        
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // script para subir la imagen
+        if($request->hasFile("imagen")){
+            
+            $imagen = $request->file("imagen");
+            $nombreimagen = Str::slug($request->name).".".$imagen->guessExtension();
+            $ruta = public_path("actividadesFotos/");
+
+            //$imagen->move($ruta,$nombreimagen);
+            copy($imagen->getRealPath(),$ruta.$nombreimagen);
+            
+
+            $actividad->urlphoto ="actividadesFotos/".$nombreimagen;
+        }
+        
+        
+        
+        
+        $actividad->descripcion=$request->input('Descripcion');
+        $actividad->precio=$request->input('Precio');
+        $actividad->user_id=$request->input('monitor');
+        $actividad->instalacion_id=$request->input('instalacion');
+        $actividad->save();
+        return redirect()->route('ActividadesCalendario')->with('mensaje', 'El objeto ha sido creado correctamente');
+    }
 }

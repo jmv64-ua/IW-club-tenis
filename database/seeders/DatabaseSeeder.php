@@ -44,6 +44,21 @@ class DatabaseSeeder extends Seeder
             'resumen' => 'Resumen del Administrador',
             'urlphoto' => 'url/photo/admin.jpg',
         ]);
+        User::create([
+            'name' => 'monitor',
+            'email' => 'monitor@monitor.com',
+            'password' => Hash::make('monitor'),
+            'saldo' => 100.00,
+            'direccion' => 'Dirección del monitor',
+            'codigo_postal' => '12345',
+            'telefono' => '123-456-7890',
+            'rol' => 'monitor',
+            'Validado' => true,
+            'descripcion' => 'Descripción del Administrador',
+            'bloqueado' => false,
+            'resumen' => 'Resumen del Administrador',
+            'urlphoto' => 'url/photo/admin.jpg',
+        ]);
 
         User::create([
             'name' => 'Monitor',
