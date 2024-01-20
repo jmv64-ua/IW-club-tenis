@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('descripcion')->nullable();;
             $table->boolean('bloqueado')->default(false);
             $table->string('resumen')->nullable();
-            $table->string('urlphoto')->nullable();
+            $table->string('urlphoto')->nullable()->default('userFotos/profile.png');
             $table->rememberToken();
             $table->timestamps();
         });

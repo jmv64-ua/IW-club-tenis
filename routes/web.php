@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\LoginController; // Importar el controlador LoginController
 use App\Http\Controllers\Auth\RegisterController; // Importar el controlador RegisterController
 use App\Http\Controllers\MonitorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -36,6 +37,7 @@ Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])-
 Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
+Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
 /*
 Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');
