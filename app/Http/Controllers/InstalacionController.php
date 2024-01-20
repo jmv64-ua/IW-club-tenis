@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instalacion;
+use App\Models\Actividad;
 
 class InstalacionController extends Controller
 {
@@ -63,6 +64,18 @@ class InstalacionController extends Controller
         $instalacion = Instalacion::findOrFail($id);
 
         return view('instalaciones.show', compact('instalacion'));
+    }
+
+    // Recibe la id de la instalación
+    public function asignarActividad($id_instalacion, $id_actividad) {
+        $actividad = Actividad::find($id_actividad);
+
+        $actividad->instalacion_id = $id_instalacion;
+        $actividad->save();
+
+        $instalaciones = Instalacion::all();
+
+        return view('instalaciones.index', compact('instalaciones'));
     }
 }
 
