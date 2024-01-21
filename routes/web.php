@@ -38,6 +38,7 @@ Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
+Route::put('/user',[UserController::class, 'Usuarioedit'])->name('Usuarioedit');
 /*
 Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');

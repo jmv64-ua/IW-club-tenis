@@ -102,6 +102,11 @@ class ActividadController extends Controller
 
             // ...
         ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         $actividad->nombre = $request->input('nombre');
         $fecha = $request->input('fecha');
         $hora = $request->input('hora');
@@ -126,11 +131,7 @@ class ActividadController extends Controller
         $actividad->fechaFin=$carbonFechaHoraFin;
         
     
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        
 
         // script para subir la imagen
         if($request->hasFile("imagen")){
