@@ -1,8 +1,10 @@
+<!-- resources/views/users/create.blade.php -->
+
 @extends('layout')
 
 @section('content')
     <h1>Crear Usuario</h1>
-    <form action="{{ route('admin.users.store') }}" method="post">
+    <form action="{{ route('recepcionista.users.store') }}" method="post">
         @csrf
         <div class="form-group">
             <label for="name">Nombre:</label>

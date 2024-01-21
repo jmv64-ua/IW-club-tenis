@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('calendarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('actividad_id')->nullable()->constrained('actividades')->onDelete('cascade');
-            $table->foreignId('monitor_id')->nullable()->constrained('monitores')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reserva_id')->nullable()->constrained('reservas')->onDelete('cascade');
-            $table->date('fecha');
-            $table->time('hora');
+            $table->datetime('fecha');
+            
             $table->integer('plazas');
             $table->timestamps();
             

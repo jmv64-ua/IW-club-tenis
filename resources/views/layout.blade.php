@@ -7,7 +7,10 @@
     <title>{{ config('app.name', 'FutNew') }}</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link href="{{ asset('css/styles-welcome.css') }}" rel="stylesheet">
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,15 +26,30 @@
             background-attachment: fixed;
         }
 
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff; /* Cambiado el color del texto a blanco */
+        }
+
         .navbar {
-            background-color: #6eece8; /* Cambia el color de fondo de la barra de navegación según tus preferencias */
+        background-color: #155724; /* Cambia el color de fondo de la barra de navegación según tus preferencias */
         }
 
         .navbar img {
-            max-width: 40px; /* Establece un ancho máximo para la imagen del usuario en la barra de navegación */
-            border-radius: 50%; /* Añade un borde redondeado a la imagen del usuario */
-            margin-right: 10px; /* Añade un margen derecho para separar la imagen del botón */
+            max-width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
+
+        .navbar-nav .nav-link {
+            color: #fff; /* Cambiado el color del texto a blanco */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff; /* Cambiado el color del ícono del botón de navegación a blanco */
+        }
+        
     </style>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -47,29 +65,48 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbar-sticky">
-                <ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse justify-content-end" id="navbar-sticky">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/monitores') }}">Monitores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
+                    </li>
+                    
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/login') }}">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/register') }}">Register</a>
+                        </li>
                     @endguest
 
                     @auth
+                    @if(Auth::user()->rol == 'administrador')
                         <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">CRUD Usuarios</a>
                         </li>
-
+                    @endif
                         @if(Auth::check())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/user/') }}">
-                                    <img src="{{ asset(Auth::user()->picture) }}" alt="User Image">
-                                    <button class="btn btn-link">Profile</button>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(Auth::check())
+                                    <img src="{{ asset(Auth::user()->urlphoto) }}" alt="User Image" class="rounded-circle" width="30" height="30">
+                                @endif
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ url('/user/') }}">
+                                    Ver Perfil
                                 </a>
-                            </li>
+                                <div class="dropdown-divider"></div>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </div>
+                        </li>
                         @endif
                     @endauth
                 </ul>
@@ -80,6 +117,7 @@
     <div class="container mt-4">
         @yield('content')
     </div>
+    @stack('scripts')
 
     <!-- Bootstrap JS (popper.js included) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

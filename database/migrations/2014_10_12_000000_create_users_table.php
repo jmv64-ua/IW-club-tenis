@@ -19,15 +19,20 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->decimal('saldo', 10, 2)->default(0.00);
+            $table->decimal('saldo', 10, 2)->default(0.00)->default(0.00);
             $table->string('direccion');
             $table->string('codigo_postal');
             $table->string('telefono');
+            $table->enum('rol', ['administrador', 'socio', 'monitor','recepcionista'])->default('socio');
             $table->boolean('Validado')->default(false);
+            $table->string('descripcion')->nullable();;
+            $table->boolean('bloqueado')->default(false);
+            $table->string('resumen')->nullable();
+            $table->string('urlphoto')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
         });
+        
         
     }
 

@@ -25,6 +25,16 @@ class User extends Authenticatable
         'direccion',
         'codigo_postal',
         'telefono',
+        'rol',
+        'Validado',
+        'descripcion',
+        'bloqueado',
+        'resumen',
+        'urlphoto'
+        'saldo',
+        'direccion',
+        'codigo_postal',
+        'telefono',
         'Validado',
     ];
 
@@ -47,18 +57,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     // En el modelo 'Usuario'
-    public function reserva()
-    {
-        return $this->hasMany(Reserva::class);
-    }
-
-    public function administrador()
-    {
-        return $this->hasMany(Administrador::class);
-    }
-
-    public function monitor()
-    {
-        return $this->hasMany(Administrador::class);
-    }
+   
 }

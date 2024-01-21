@@ -6,12 +6,10 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Administrador;
-use App\Models\Socio;
-use App\Models\Recepcionista;
 use App\Models\Instalacion;
 use App\Models\Actividad;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,47 +20,66 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
+        
         // Deshabilitar las restricciones de clave externa para eliminar datos en el orden correcto
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         // Eliminar datos de las tablas
-        Administrador::truncate();
-        User::truncate();
-        Socio::truncate();
-        Recepcionista::truncate();
+        
         // Volver a habilitar las restricciones de clave externa
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         // Crea tres usuarios
-        // Crea tres usuarios con el campo 'Validado' establecido en true
-        // Crea tres usuarios con el campo 'Validado' establecido en true
-        $users = User::factory(6)->create([
-            'name'     => 'username',
-            'password' => '123',
+        User::create([
+            'name' => 'Administrador',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'saldo' => 100.00,
+            'direccion' => 'Dirección del Administrador',
+            'codigo_postal' => '12345',
+            'telefono' => '123-456-7890',
+            'rol' => 'administrador',
             'Validado' => true,
+            'descripcion' => 'Descripción del Administrador',
+            'bloqueado' => false,
+            'resumen' => 'Resumen del Administrador',
+            'urlphoto' => 'url/photo/admin.jpg',
+        ]);
+        User::create([
+            'name' => 'monitor',
+            'email' => 'monitor@monitor.com',
+            'password' => Hash::make('monitor'),
+            'saldo' => 100.00,
+            'direccion' => 'Dirección del monitor',
+            'codigo_postal' => '12345',
+            'telefono' => '123-456-7890',
+            'rol' => 'monitor',
+            'Validado' => true,
+            'descripcion' => 'Descripción del Administrador',
+            'bloqueado' => false,
+            'resumen' => 'Resumen del Administrador',
+            'urlphoto' => 'url/photo/admin.jpg',
         ]);
 
+        User::create([
+            'name' => 'Monitor',
+            'email' => 'monitor@example.com',
+            'password' => Hash::make('password'),
+            'saldo' => 100.00,
+            'direccion' => 'Dirección del monitor',
+            'codigo_postal' => '12345',
+            'telefono' => '123-456-7890',
+            'rol' => 'monitor',
+            'Validado' => true,
+            'descripcion' => 'Descripción del monitor',
+            'bloqueado' => false,
+            'resumen' => 'Resumen del monitor',
+            'urlphoto' => 'monitor.png',
+        ]);
 
+        // Crear otros usuarios de ejemplo con roles diferentes
+        User::factory()->count(5)->create();
 
-        // UN ADMIN
-        $admin = new Administrador();
-        $admin->user_id = $users->first()->id; // Asigna el primer usuario como administrador
-        $admin->save();
-
-        // UN SOCIO
-        $secondUser = User::skip(1)->take(1)->first();
-        $socio = new Socio();
-        $socio->user_id = $secondUser->id;
-        $socio->save();
-
-        // UN RECEPCIONISTA
-        $thirdUser = User::skip(2)->take(1)->first();
-
-        // Crea el registro del recepcionista asociado al tercer usuario
-        $recepcionista = new Recepcionista();
-        $recepcionista->user_id = $thirdUser->id;
-        $recepcionista->save();
 
         // INSTALACION
         $instalacion = new Instalacion();
@@ -75,8 +92,9 @@ class DatabaseSeeder extends Seeder
             'instalacion_id' => 1,
             'nombre' => 'Actividad 1',
             'precio' => 20.00,
-            'fecha' => $faker->date,
-            'hora' => $faker->time,
+            'fechaI' => '2024-01-16 11:00',
+            'fechaFin' => '2024-01-16 13:00',
+            
             'descripcion' => 'Clases de natación para todos los públicos en distintos horarios',
             'urlphoto' => 'natacion.png',
         ]);
@@ -85,8 +103,8 @@ class DatabaseSeeder extends Seeder
             'instalacion_id' => 1,
             'nombre' => 'Tenis',
             'precio' => 25.00,
-            'fecha' => $faker->date,
-            'hora' => $faker->time,
+            'fechaI' => '2024-01-16 09:00',
+            'fechaFin' => '2024-01-16 11:00',
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
         ]);

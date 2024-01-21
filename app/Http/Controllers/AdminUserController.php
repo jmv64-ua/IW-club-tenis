@@ -44,12 +44,22 @@ class AdminUserController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validar los nuevos datos antes de la actualización
         $this->validateUser($request, $id);
-
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-
-        return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado correctamente.');
+    
+        try {
+            // Encontrar el usuario
+            $user = User::findOrFail($id);
+    
+            // Actualizar el usuario con los nuevos datos
+            $user->update($request->all());
+    
+            // Redireccionar a la lista de usuarios con un mensaje de éxito
+            return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado correctamente.');
+        } catch (\Exception $e) {
+            // En caso de error, redireccionar con un mensaje de error
+            return redirect()->route('admin.users.edit', $id)->with('error', 'Error al actualizar el usuario. Por favor, verifica los datos e inténtalo de nuevo.');
+        }
     }
 
     public function destroy($id)
@@ -70,13 +80,25 @@ class AdminUserController extends Controller
                 'max:255',
                 Rule::unique('users')->ignore($userId),
             ],
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8', // Permitir contraseña nula o con al menos 8 caracteres
             'saldo' => 'required|numeric',
             'direccion' => 'required|string|max:255',
             'codigo_postal' => 'required|string|max:20',
             'telefono' => 'required|string|max:20',
+            'rol' => 'required|in:administrador,socio,monitor,recepcionista',
+            'Validado' => 'required|boolean',
+            'descripcion' => 'nullable|string',
+            'bloqueado' => 'required|boolean',
+            'resumen' => 'nullable|string',
+            'urlphoto' => 'nullable|string',
         ];
-
-        $request->validate($rules);
+    
+        $messages = [
+            'rol.in' => 'El campo Rol debe ser uno de: administrador, socio, monitor, recepcionista.',
+        ];
+    
+        $request->validate($rules, $messages);
     }
+    
+    
 }
