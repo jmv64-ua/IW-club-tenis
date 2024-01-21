@@ -8,6 +8,7 @@ use App\Http\Controllers\RecepcionistaUserController;
 use App\Http\Controllers\Auth\LoginController; // Importar el controlador LoginController
 use App\Http\Controllers\Auth\RegisterController; // Importar el controlador RegisterController
 use App\Http\Controllers\MonitorController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -38,6 +39,10 @@ Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])-
 Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
+Route::get('/reservas', [ActividadController::class, 'ActividadesReservas'])->name('reservas');
+Route::post('/reservar/{id}', [ReservaController::class, 'reservar']);
+Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->name('historialReservas');
+
 /*
 Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');

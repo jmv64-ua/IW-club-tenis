@@ -42,6 +42,28 @@ class ActividadController extends Controller
             'actividades' => $allactivities
         ]);
     }
+
+    public function ActividadesReservas(){
+        $query = Actividad::all();
+    
+        $actividades = $query;
+    
+        $allactivities =[];
+        foreach ($actividades as $actividad){
+            $allactivities[]=[
+                'id' => $actividad->id,  // Agregar el campo id
+                'title' => $actividad->nombre,
+                'start' =>  $actividad->fechaI,
+                'end' => $actividad->fechaFin,
+            ];
+        };
+    
+        return view ('reservas', [
+            'actividades' => $allactivities
+        ]);
+    }    
+
+
     public function Actividad($id){
         $query = Actividad::find($id);
 

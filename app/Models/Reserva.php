@@ -8,7 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Reserva extends Model
 {
     use HasFactory;
-    protected $table = 'Reservas';
+    protected $table = 'reservas';
+
+    protected $fillable = [
+        'user_id',
+        'fecha_alta',
+        'fecha_reserva',
+        'instalacion_id',
+        'calendario_id',
+        'actividad_id',
+        'hora_reserva',
+        'duracion',
+    ];
+
     // En el modelo 'Reserva'
     public function user()
     {
@@ -22,6 +34,10 @@ class Reserva extends Model
     public function instalacion()
     {
         return $this->belongsTo(Instalacion::class)->nullable();
+    }
+    public function actividad()
+    {
+        return $this->belongsTo(Actividad::class, 'actividad_id');
     }
 
 }
