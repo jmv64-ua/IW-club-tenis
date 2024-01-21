@@ -84,20 +84,29 @@
                     @endguest
 
                     @auth
+                    @if(Auth::user()->rol == 'administrador')
                         <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">CRUD Usuarios</a>
                         </li>
-
+                    @endif
                         @if(Auth::check())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/user/') }}">
-                                    <img src="{{ asset(Auth::user()->picture) }}" alt="User Image">
-                                    <button class="btn btn-link">Profile</button>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(Auth::check())
+                                    <img src="{{ asset(Auth::user()->urlphoto) }}" alt="User Image" class="rounded-circle" width="30" height="30">
+                                @endif
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ url('/user/') }}">
+                                    Ver Perfil
                                 </a>
-                            </li>
+                                <div class="dropdown-divider"></div>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </div>
+                        </li>
                         @endif
                     @endauth
                 </ul>

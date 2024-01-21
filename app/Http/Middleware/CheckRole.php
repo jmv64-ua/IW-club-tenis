@@ -17,10 +17,10 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles)
     {
         if ($request->user()) {
-            if ($request->user()->rol == $role) {
+            // Verifica si el rol del usuario está en la lista de roles permitidos
+            if (in_array($request->user()->rol, $roles)) {
                 return $next($request);
             }
-            
         }
 
         abort(403, 'Acceso no autorizado.');

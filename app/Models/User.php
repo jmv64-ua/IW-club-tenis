@@ -25,7 +25,12 @@ class User extends Authenticatable
         'direccion',
         'codigo_postal',
         'telefono',
+        'rol',
         'Validado',
+        'descripcion',
+        'bloqueado',
+        'resumen',
+        'urlphoto'
     ];
 
     /**
