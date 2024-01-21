@@ -27,15 +27,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('/actividadesCalendario',[ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+
 Route::get('/monitores', [MonitorController::class , 'index'])->name('monitores.index');
 Route::get('/monitores/{id}', [MonitorController::class, 'show'])->name('monitores.show');
 Route::get('/actividad/{id}',[ActividadController::class, 'Actividad'])->name('Actividad');
 Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('instalaciones.index');
 Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name('instalaciones.show');
-Route::put('/instalaciones/{id}', [InstalacionController::class, 'bloquear'])->name('instalaciones.bloquear');
-Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
-Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
+
+
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
@@ -61,11 +60,12 @@ Route::prefix('recepcionista/users')->middleware(['checkRole:recepcionista'])->g
     // ... (otras rutas específicas para recepcionistas)
 });
 
-Route::middleware(['checkRole:admin'])->group(function () {
+Route::middleware(['checkRole:administrador'])->group(function () {
     // Rutas para usuarios con el rol 'admin'
-   // Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
-   // Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
-    //Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
+    Route::put('/instalaciones/{id}', [InstalacionController::class, 'bloquear'])->name('instalaciones.bloquear');
+    Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+    Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
+    Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 });
 
 // Estas rutas ya son definidas automáticamente por Auth::routes()

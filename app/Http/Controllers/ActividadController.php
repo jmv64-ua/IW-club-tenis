@@ -137,7 +137,7 @@ class ActividadController extends Controller
         if($request->hasFile("imagen")){
             
             $imagen = $request->file("imagen");
-            $nombreimagen = Str::slug($request->name).".".$imagen->guessExtension();
+            $nombreimagen = Str::slug($request->nombre).".".$imagen->guessExtension();
             $ruta = public_path("actividadesFotos/");
 
             //$imagen->move($ruta,$nombreimagen);

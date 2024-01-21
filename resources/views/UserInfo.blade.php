@@ -3,6 +3,27 @@
 @section('content')
 
 <div class="container mt-5">
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session('mensaje'))
+        <div class="alert alert-success">
+            {{ session('mensaje') }}
+        </div>
+    @endif
+
+    {{-- Mensajes de error --}}
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -24,15 +45,17 @@
                             <li class="list-group-item"><strong>Código Postal:</strong> {{ $usuario->codigo_postal }}</li>
                             <li class="list-group-item"><strong>Teléfono:</strong> {{ $usuario->telefono }}</li>
                             <li class="list-group-item"><strong>Rol:</strong> {{ $usuario->rol }}</li>
-                            
+                            <li class="list-group-item"><strong>Descripción:</strong> {{ $usuario->descripcion }}</li>
+                            <li class="list-group-item"><strong>Resumen:</strong> {{ $usuario->resumen }}</li>
                             <li class="list-group-item"><strong>Saldo:</strong> {{ number_format($usuario->saldo, 2) }} €</li>
                         </ul>
                         <div>
                             <a class="btn btn-info" id="editButton">Editar Información</a>
                         </div>
                     </div>
-                    <form id="editForm" enctype="multipart/form-data" method="POST" action="{{ route('Usuarioedit') }}" style="display: none;">
+                    <form id="editForm" enctype="multipart/form-data" method="Post" action="{{ route('Usuarioedit') }}" style="display: none;">
                         @csrf
+                        @method('PUT')
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <strong>Email:</strong>
@@ -51,6 +74,14 @@
                                 <input type="text" class="form-control" name="telefono" value="{{ $usuario->telefono }}">
                             </li>
                             <li class="list-group-item">
+                                <strong>Descripción:</strong>
+                                <input type="text" class="form-control" name="descripcion" value="{{ $usuario->descripcion }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Resumen:</strong>
+                                <input type="text" class="form-control" name="resumen" value="{{ $usuario->resumen }}">
+                            </li>
+                            <li class="list-group-item">
                                 <strong for="imagen" class="form-label">Imagen:</strong>
                                 <input type="file" class="form-control" name="imagen" accept="image/png">
                             </li>
@@ -64,7 +95,7 @@
                             </li>
                             <!-- Otros campos de formulario similares para otros atributos -->
                         </ul>
-                        <button type="button" class="btn btn-primary" id="saveChanges">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-primary" id="saveChanges">Guardar Cambios</button>
                         <a class="btn btn-info" id="SeeData">Ver Datos</a>
                     </form>
                 </div>

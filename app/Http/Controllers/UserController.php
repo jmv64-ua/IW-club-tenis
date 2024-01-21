@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function Usuario(){
@@ -22,18 +24,24 @@ class UserController extends Controller
         }
         
     }
-    public function Usuarioedit($request){
+    public function Usuarioedit(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'direccion' => 'required',
             'codigo_postal'=>'required',
             'telefono' => 'required',
             'descripcion'  => 'required',
-            'resumen '  => 'required',
+            'resumen'  => 'required',
         ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         if (Auth::check()) {
             $usuario = User::find(Auth::user()->id);
+            
             if($request->password != null && $request->Rpassword != null){
                 if($request->password == $request->Rpassword ){
                     $usuario->password=Hash::make($request->password);
@@ -51,7 +59,20 @@ class UserController extends Controller
             $usuario->telefono=$request->telefono;
             $usuario->descripcion=$request->descripcion;
             $usuario->resumen=$request->resumen;
-
+            if($request->hasFile("imagen")){
+            
+                $imagen = $request->file("imagen");
+                $nombreimagen = Str::slug($request->email).".".$imagen->guessExtension();
+                $ruta = public_path("userFotos/");
+    
+                //$imagen->move($ruta,$nombreimagen);
+                copy($imagen->getRealPath(),$ruta.$nombreimagen);
+                
+    
+                $usuario->urlphoto ="userFotos/".$nombreimagen;
+            }
+            $usuario->save();
+            return redirect()->back()->with('mensaje', 'Cambios Efectuados');
             
         }
         else{
