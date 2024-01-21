@@ -55,9 +55,12 @@
                         $('#mensajeReservaExitosa').fadeIn();
                         setTimeout(function() {
                             $('#mensajeReservaExitosa').fadeOut();
-                        }, 5000);
+                        }, 4000);
                     } else if (response.message === "No hay suficiente aforo en la instalación") {
                         $('#mensajeAforoCompleto').fadeIn();
+                        setTimeout(function() {
+                            $('#mensajeAforoCompleto').fadeOut();
+                        }, 4000);
                     }
                 },
                 error: function(error) {
