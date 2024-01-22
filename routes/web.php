@@ -58,6 +58,7 @@ Route::prefix('admin/users')->middleware(['checkRole:administrador'])->group(fun
     Route::put('/{id}/update', [AdminUserController::class, 'update'])->name('admin.users.update');
     Route::delete('/{id}/destroy', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+    Route::get('/{id}/validate', [AdminUserController::class, 'validar'])->name('admin.users.validate');
 });
 
 Route::prefix('recepcionista/users')->middleware(['checkRole:recepcionista'])->group(function () {
