@@ -31,11 +31,12 @@ class ReservaController extends Controller {
             if ($actividad) {
                 // Obtén la instalación asociada a la actividad
                 $instalacion = $actividad->instalacion;
-    
-                if ($instalacion && $instalacion->aforo > 0) {
-                    // Decrementa el aforo de la instalación en uno
-                    $instalacion->decrement('aforo', 1);
-    
+
+                $reservas = Reserva::where('actividad_id',$id)->count();
+                
+                $aforoDisponible = $instalacion->aforo - $reservas;
+
+                if ($aforoDisponible > 0) {
                     // Guarda la reserva en la base de datos
                     $user->reservas()->saveMany([$reserva]);
     

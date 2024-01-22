@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Administrador',
             'email' => 'admin@example.com',
-            'password' => '123',
+            'password' => Hash::make('password'),
             'saldo' => 100.00,
             'direccion' => 'Dirección del Administrador',
             'codigo_postal' => '12345',
