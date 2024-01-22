@@ -14,9 +14,9 @@ class Actividad extends Model
     {
         return $this->belongsTo(Instalacion::class);
     }
-    public function user()
+    public function usuario()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

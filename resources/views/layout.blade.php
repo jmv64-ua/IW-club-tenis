@@ -73,7 +73,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
                     </li>
-                    
+
+                    <li class="nav-item">
+                        @if(auth()->check())
+                            <a class="nav-link" href="{{ url('/reservas/' . auth()->user()->id) }}">Mis reservas</a>
+                        @endif
+                    </li>
+
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/login') }}">Login</a>

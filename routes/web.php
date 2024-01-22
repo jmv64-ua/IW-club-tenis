@@ -8,8 +8,10 @@ use App\Http\Controllers\RecepcionistaUserController;
 use App\Http\Controllers\Auth\LoginController; // Importar el controlador LoginController
 use App\Http\Controllers\Auth\RegisterController; // Importar el controlador RegisterController
 use App\Http\Controllers\MonitorController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,11 @@ Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name(
 
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
+Route::get('/reservas', [ActividadController::class, 'ActividadesReservas'])->name('reservas');
+Route::post('/reservar/{id}', [ReservaController::class, 'reservar']);
+Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->name('historialReservas');
+Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
+
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
 Route::put('/user',[UserController::class, 'Usuarioedit'])->name('Usuarioedit');
 /*
@@ -58,6 +65,16 @@ Route::prefix('recepcionista/users')->middleware(['checkRole:recepcionista'])->g
     Route::get('/create', [RecepcionistaUserController::class, 'create'])->name('recepcionista.users.create');
     Route::post('/store', [RecepcionistaUserController::class, 'store'])->name('recepcionista.users.store');
     // ... (otras rutas específicas para recepcionistas)
+});
+
+Route::prefix('monitor')->group(function () {
+    Route::get('/actividades', [MonitorController::class, 'actividades'])->name('monitor.actividades');
+    // ... otras rutas específicas para monitores
+});
+
+Route::prefix('monitor')->group(function () {
+    Route::get('/actividades', [MonitorController::class, 'actividades'])->name('monitor.actividades');
+    // ... otras rutas específicas para monitores
 });
 
 Route::middleware(['checkRole:administrador'])->group(function () {

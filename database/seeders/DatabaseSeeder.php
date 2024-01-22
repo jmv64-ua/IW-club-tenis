@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Instalacion;
 use App\Models\Actividad;
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Administrador',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'password' => '123',
             'saldo' => 100.00,
             'direccion' => 'Dirección del Administrador',
             'codigo_postal' => '12345',
@@ -93,7 +94,7 @@ class DatabaseSeeder extends Seeder
             'precio' => 20.00,
             'fechaI' => '2024-01-16 11:00',
             'fechaFin' => '2024-01-16 13:00',
-            
+            'user_id' => '2',
             'descripcion' => 'Clases de natación para todos los públicos en distintos horarios',
             'urlphoto' => 'natacion.png',
         ]);
@@ -104,6 +105,7 @@ class DatabaseSeeder extends Seeder
             'precio' => 25.00,
             'fechaI' => '2024-01-16 09:00',
             'fechaFin' => '2024-01-16 11:00',
+            'user_id' => '2',
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
         ]);
