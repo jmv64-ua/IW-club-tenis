@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Actividad;
+use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Instalacion;
 use Illuminate\Support\Str;
@@ -42,13 +43,37 @@ class ActividadController extends Controller
             'actividades' => $allactivities
         ]);
     }
+
+    public function ActividadesReservas(){
+        $query = Actividad::all();
+    
+        $actividades = $query;
+    
+        $allactivities =[];
+        foreach ($actividades as $actividad){
+            $allactivities[]=[
+                'id' => $actividad->id,  // Agregar el campo id
+                'title' => $actividad->nombre,
+                'start' =>  $actividad->fechaI,
+                'end' => $actividad->fechaFin,
+            ];
+        };
+    
+        return view ('reservas', [
+            'actividades' => $allactivities
+        ]);
+    }    
+
+
     public function Actividad($id){
         $query = Actividad::find($id);
+        $Reservas = Reserva::where('actividad_id',$id)->count();
 
         
 
         return view ('actividad',[
-            'actividad' => $query
+            'actividad' => $query,
+            'Reservas' => $Reservas,
         ]);
     }
         // En tu controlador
@@ -73,6 +98,22 @@ class ActividadController extends Controller
             'monitores'=> $monitores,
             'instalaciones' =>$instalaciones
         ]);
+    }
+
+    public function actividadesPorUsuario()
+    {
+        $monitorId = Auth::user()->id;
+        $actividades = Actividad::where('user_id', $monitorId)->get();
+    
+        $filteredActivities = $actividades->map(function ($actividad) {
+            return [
+                'title' => $actividad->nombre,
+                'start' => $actividad->fechaI,
+                'end' => $actividad->fechaFin,
+            ];
+        });
+    
+        return response()->json($filteredActivities);
     }
     
 
@@ -102,6 +143,11 @@ class ActividadController extends Controller
 
             // ...
         ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         $actividad->nombre = $request->input('nombre');
         $fecha = $request->input('fecha');
         $hora = $request->input('hora');
@@ -126,17 +172,13 @@ class ActividadController extends Controller
         $actividad->fechaFin=$carbonFechaHoraFin;
         
     
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        
 
         // script para subir la imagen
         if($request->hasFile("imagen")){
             
             $imagen = $request->file("imagen");
-            $nombreimagen = Str::slug($request->name).".".$imagen->guessExtension();
+            $nombreimagen = Str::slug($request->nombre).".".$imagen->guessExtension();
             $ruta = public_path("actividadesFotos/");
 
             //$imagen->move($ruta,$nombreimagen);

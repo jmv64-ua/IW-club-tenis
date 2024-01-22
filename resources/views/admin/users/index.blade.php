@@ -1,44 +1,35 @@
-<!DOCTYPE html>
 @extends('layout')
 
 @section('content')
-    <div>
-        <div class="col">
-            <h2>Listado de usuarios extensivo</h2>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col">
-            <table class="table table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Validado</th>
-                        <th>Bloqueado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $usuario)
-                        <tr>
-                            <td>{{ $usuario->id }}</td>
-                            <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->email }}</td>
-                            <td>{{ $usuario->rol }}</td>
-                            <td>{{ $usuario->Validado }}</td>
-                            <td>{{ $usuario->bloqueado }}</td>
-                            @if(!$usuario->Validado)
-                                <td>
-                                    <a class="btn btn-primary" href="{{ route('admin.users.validar', $usuario->id) }}">Validar</a>
-                                </td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <h1>Lista de Usuarios</h1>
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Crear Usuario</a>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-info">Ver</a>
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection
