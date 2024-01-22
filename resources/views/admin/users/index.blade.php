@@ -27,6 +27,9 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
                         </form>
+                        @if(!$user->Validado)
+                            <a href="{{ route('admin.users.validate', $user->id) }}" class="btn btn-primary">Validar</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
