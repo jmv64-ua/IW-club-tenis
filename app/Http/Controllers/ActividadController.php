@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Actividad;
+use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Instalacion;
 use Illuminate\Support\Str;
@@ -66,11 +67,13 @@ class ActividadController extends Controller
 
     public function Actividad($id){
         $query = Actividad::find($id);
+        $Reservas = Reserva::where('actividad_id',$id)->count();
 
         
 
         return view ('actividad',[
-            'actividad' => $query
+            'actividad' => $query,
+            'Reservas' => $Reservas,
         ]);
     }
         // En tu controlador

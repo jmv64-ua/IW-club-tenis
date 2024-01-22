@@ -40,7 +40,7 @@ Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name(
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/reservas', [ActividadController::class, 'ActividadesReservas'])->name('reservas');
-Route::post('/reservar/{id}', [ReservaController::class, 'reservar']);
+Route::post('/reservar/{id}', [ReservaController::class, 'reservar'])->name('reservar');
 Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->name('historialReservas');
 Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
 
