@@ -96,6 +96,22 @@ class ActividadController extends Controller
             'instalaciones' =>$instalaciones
         ]);
     }
+
+    public function actividadesPorUsuario()
+    {
+        $monitorId = Auth::user()->id;
+        $actividades = Actividad::where('user_id', $monitorId)->get();
+    
+        $filteredActivities = $actividades->map(function ($actividad) {
+            return [
+                'title' => $actividad->nombre,
+                'start' => $actividad->fechaI,
+                'end' => $actividad->fechaFin,
+            ];
+        });
+    
+        return response()->json($filteredActivities);
+    }
     
 
     public function NuevaActividad(Request $request){

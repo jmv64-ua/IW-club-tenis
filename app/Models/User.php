@@ -57,4 +57,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
    
+    public function actividades()
+    {
+        return $this->hasMany(Actividad::class, 'user_id');
+    }
+
 }
