@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             'precio' => 20.00,
             'fechaI' => '2024-01-16 11:00',
             'fechaFin' => '2024-01-16 13:00',
-            
+            'user_id' => '2',
             'descripcion' => 'Clases de natación para todos los públicos en distintos horarios',
             'urlphoto' => 'natacion.png',
         ]);
@@ -104,6 +104,7 @@ class DatabaseSeeder extends Seeder
             'precio' => 25.00,
             'fechaI' => '2024-01-16 09:00',
             'fechaFin' => '2024-01-16 11:00',
+            'user_id' => '2',
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
         ]);

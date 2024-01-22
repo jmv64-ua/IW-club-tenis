@@ -37,6 +37,8 @@ Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])-
 Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
+Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
+
 /*
 Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');
@@ -56,6 +58,11 @@ Route::prefix('recepcionista/users')->middleware(['checkRole:recepcionista'])->g
     Route::get('/create', [RecepcionistaUserController::class, 'create'])->name('recepcionista.users.create');
     Route::post('/store', [RecepcionistaUserController::class, 'store'])->name('recepcionista.users.store');
     // ... (otras rutas específicas para recepcionistas)
+});
+
+Route::prefix('monitor')->group(function () {
+    Route::get('/actividades', [MonitorController::class, 'actividades'])->name('monitor.actividades');
+    // ... otras rutas específicas para monitores
 });
 
 Route::middleware(['checkRole:admin'])->group(function () {
