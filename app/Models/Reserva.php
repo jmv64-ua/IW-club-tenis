@@ -33,7 +33,7 @@ class Reserva extends Model
     }
     public function instalacion()
     {
-        return $this->belongsTo(Instalacion::class)->nullable();
+        return $this->belongsTo(Instalacion::class);
     }
     public function actividad()
     {

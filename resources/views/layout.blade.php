@@ -74,11 +74,17 @@
                         <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
                     </li>
 
-                    <li class="nav-item">
-                        @if(auth()->check())
-                            <a class="nav-link" href="{{ url('/reservas/' . auth()->user()->id) }}">Mis reservas</a>
-                        @endif
-                    </li>
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="reservasDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reservas
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="reservasDropdown">
+                                <a class="dropdown-item" href="{{ route('reservasInstalaciones') }}">Instalaciones</a>
+                                <a class="dropdown-item" href="{{ route('reservas') }}">Actividades</a>
+                            </div>
+                        </li>
+                    @endauth
 
                     @guest
                         <li class="nav-item">

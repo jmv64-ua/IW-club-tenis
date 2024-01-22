@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Instalacion;
 use App\Models\Actividad;
+use Illuminate\Http\Request;
 
 class InstalacionController extends Controller
 {
@@ -76,6 +77,24 @@ class InstalacionController extends Controller
         $instalaciones = Instalacion::all();
 
         return view('instalaciones.index', compact('instalaciones'));
+    }
+
+    public function ReservasInstalaciones()
+    {
+        // No es necesario realizar ninguna lógica aquí, solo renderiza la vista
+        return view ('reservasInstalaciones');
+    }
+
+    public function AsignarInstalacion(Request $request)
+    {
+        // Obtener la fecha del request (puedes manejar esto según tus necesidades)
+        $fecha = $request->input('fecha');
+
+        // Obtener todas las instalaciones desde la base de datos
+        $instalaciones = Instalacion::all();
+
+        // Retornar la vista con las instalaciones
+        return view('asignarInstalacion', compact('instalaciones', 'fecha'));
     }
 }
 

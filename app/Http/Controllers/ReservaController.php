@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Actividad;
+use Illuminate\Http\Request;
 
 class ReservaController extends Controller {
     public function reservar($id) {
@@ -54,6 +55,41 @@ class ReservaController extends Controller {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function reservarInstalacion($id, Request $request)
+    {
+        try {
+            $user = auth()->user();
+            $fecha = $request->input('fecha');
+    
+            // Verificar si hay reservas existentes en la instalación para la misma hora o dos horas siguientes
+            $reservasExisten = Reserva::where('instalacion_id', $id)
+                ->where('fecha_reserva', '>=', $fecha)
+                ->where('fecha_reserva', '<=', now()->addHours(2))
+                ->exists();
+    
+            if ($reservasExisten) {
+                return response()->json(['message' => 'Instalacion ya reservada']);
+            }
+    
+            // Crea una nueva reserva con los atributos adicionales
+            $reserva = new Reserva([
+                'fecha_alta' => now(),
+                'fecha_reserva' => $fecha,
+            ]);
+    
+            $reserva->user_id = auth()->id();
+            $reserva->instalacion_id = $id;
+    
+            // Guarda la reserva en la base de datos
+            $user->reservas()->saveMany([$reserva]);
+    
+            return response()->json(['message' => 'Reserva de instalación exitosa']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
 
     public function historialReservas(User $user)
     {
