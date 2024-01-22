@@ -70,6 +70,16 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Usuario eliminado correctamente.');
     }
 
+    public function validar($id) 
+    {
+        $user = User::findOrFail($id);
+        $user->Validado = true;
+
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado correctamente.');
+    }
+
     private function validateUser(Request $request, $userId = null)
     {
         $rules = [
