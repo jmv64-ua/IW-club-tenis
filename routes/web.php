@@ -88,6 +88,7 @@ Route::middleware(['checkRole:administrador'])->group(function () {
     Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
     Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
     Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
+    Route::get('/estadisticasAdmin', [AdminUserController::class, 'estadisticasAdmin'])->name('estadisticasAdmin');
 });
 
 // Estas rutas ya son definidas automáticamente por Auth::routes()

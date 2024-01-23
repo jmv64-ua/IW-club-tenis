@@ -100,6 +100,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">CRUD Usuarios</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/estadisticasAdmin') }}">Estadísticas</a>
+                        </li>
                     @endif
                         @if(Auth::check())
                         <li class="nav-item dropdown">
