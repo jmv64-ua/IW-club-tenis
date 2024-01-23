@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisterController; // Importar el controlador Reg
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\APIController;
 use App\Models\Instalacion;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,8 @@ Route::get('/actividades-por-usuario', [ActividadController::class, 'actividades
 
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
 Route::put('/user',[UserController::class, 'Usuarioedit'])->name('Usuarioedit');
+
+Route::get('/tienda', [APIController::class, 'obtenerProductos'])->name('tienda.index');
 /*
 Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');

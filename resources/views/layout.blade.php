@@ -82,6 +82,7 @@
                             <div class="dropdown-menu" aria-labelledby="reservasDropdown">
                                 <a class="dropdown-item" href="{{ route('reservasInstalaciones') }}">Instalaciones</a>
                                 <a class="dropdown-item" href="{{ route('reservas') }}">Actividades</a>
+                                <a class="dropdown-item" href="{{ route('tienda.index') }}">Tienda</a>
                             </div>
                         </li>
                     @endauth
