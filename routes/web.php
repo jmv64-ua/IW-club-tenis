@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisterController; // Importar el controlador Reg
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UserController;
+use App\Models\Instalacion;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -35,12 +36,15 @@ Route::get('/monitores/{id}', [MonitorController::class, 'show'])->name('monitor
 Route::get('/actividad/{id}',[ActividadController::class, 'Actividad'])->name('Actividad');
 Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('instalaciones.index');
 Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name('instalaciones.show');
+Route::get('/reservasInstalaciones', [InstalacionController::class, 'ReservasInstalaciones'])->name('reservasInstalaciones');
+Route::get('/asignarInstalacion', [InstalacionController::class, 'AsignarInstalacion'])->name('asignarInstalacion');
 
 
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
 Route::get('/actividades',[ActividadController::class, 'Actividades'])->name('Actividades');
 Route::get('/reservas', [ActividadController::class, 'ActividadesReservas'])->name('reservas');
 Route::post('/reservar/{id}', [ReservaController::class, 'reservar'])->name('reservar');
+Route::post('/reservarInstalacion/{id}', [ReservaController::class, 'reservarInstalacion'])->name('reservarInstalacion');
 Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->name('historialReservas');
 Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
 
@@ -84,6 +88,7 @@ Route::middleware(['checkRole:administrador'])->group(function () {
     Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
     Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
     Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
+    Route::get('/estadisticasAdmin', [AdminUserController::class, 'estadisticasAdmin'])->name('estadisticasAdmin');
 });
 
 // Estas rutas ya son definidas automáticamente por Auth::routes()

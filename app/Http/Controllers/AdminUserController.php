@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Reserva;
+use App\Models\Instalacion;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class AdminUserController extends Controller
 {
@@ -109,6 +112,37 @@ class AdminUserController extends Controller
     
         $request->validate($rules, $messages);
     }
+
+
+    public function estadisticasAdmin()
+    {
+        // Obtener contadores de reservas por instalación
+        $contadoresReservas = Reserva::select('instalacion_id', DB::raw('count(*) as total_reservas'))
+            ->with('instalacion') // Cargar detalles de la instalación
+            ->groupBy('instalacion_id')
+            ->get();
     
-    
+        // Obtener usuarios con más reservas
+        $usuariosConMasReservas = User::select('users.id', 'users.name', DB::raw('count(reservas.id) as total_reservas'))
+            ->join('reservas', 'users.id', '=', 'reservas.user_id')
+            ->groupBy('users.id', 'users.name')
+            ->orderByDesc('total_reservas')
+            ->take(5) // Obtener los primeros 5 usuarios con más reservas (puedes ajustar según tus necesidades)
+            ->get();
+
+        // Obtener contadores de reservas por actividad
+        $contadoresReservasActividades = Reserva::select('actividad_id', DB::raw('count(*) as total_reservas_actividad'))
+        ->with('actividad') // Cargar detalles de la actividad
+        ->groupBy('actividad_id')
+        ->get();
+
+
+        // Puedes pasar tanto los contadores de reservas como los usuarios con más reservas y los contadores de reservas de actividades a la vista
+        return view('admin.estadisticas', [
+            'contadoresReservas' => $contadoresReservas,
+            'usuariosConMasReservas' => $usuariosConMasReservas,
+            'contadoresReservasActividades' => $contadoresReservasActividades,
+        ]);
+    }
+
 }

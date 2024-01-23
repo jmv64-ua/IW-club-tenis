@@ -88,6 +88,13 @@ class DatabaseSeeder extends Seeder
         $instalacion->urlphoto= null;
         $instalacion->save();
 
+        // INSTALACION
+        $instalacion = new Instalacion();
+        $instalacion->tipo_instalacion= "Pista de pádel";
+        $instalacion->aforo= 4;
+        $instalacion->urlphoto= null;
+        $instalacion->save();
+
         Actividad::create([
             'instalacion_id' => 1,
             'nombre' => 'Actividad 1',
@@ -105,6 +112,17 @@ class DatabaseSeeder extends Seeder
             'precio' => 25.00,
             'fechaI' => '2024-01-16 09:00',
             'fechaFin' => '2024-01-16 11:00',
+            'user_id' => '2',
+            'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
+            'urlphoto' => 'tenis.png',
+        ]);
+
+        Actividad::create([
+            'instalacion_id' => 1,
+            'nombre' => 'Tenis',
+            'precio' => 25.00,
+            'fechaI' => '2024-01-24 09:00',
+            'fechaFin' => '2024-01-24 11:00',
             'user_id' => '2',
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
