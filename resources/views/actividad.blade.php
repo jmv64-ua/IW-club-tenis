@@ -21,11 +21,12 @@
         <h1 class="">Clases de {{$actividad->nombre}}</h1>
         <img class="image" src="{{ asset($actividad->urlphoto) }}" alt="Descripción de la imagen">
         <p>{{$actividad->descripcion}}</p>
-        <form id="reservaForm" enctype="multipart/form-data" method="POST" action="{{ route('reservar', $actividad->id) }}">
-            @csrf
-            @method('POST')
-            <button class="btn btn-info" type="button" onclick="confirmarReserva()">Reservar</button>
-        </form>
+        @auth
+            <div>Reserva en el apartado de reservas</div>
+        @endauth
+        @guest
+        <div>Registrate para Reservar!!!</div>
+        @endguest
         
         <div >
           <div class="row">

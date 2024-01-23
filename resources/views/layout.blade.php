@@ -68,10 +68,13 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbar-sticky">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/monitores') }}">Monitores</a>
+                        <a class="nav-link" href="{{ url('/monitores') }}">Listado de Monitores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
+                        <a class="nav-link" href="{{ url('/actividades') }}">Listado de Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/instalaciones') }}">Listado de Instalaciones</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/tienda') }}">Tienda</a>
@@ -99,20 +102,22 @@
                     @endguest
 
                     @auth
-                    @if(Auth::user()->rol == 'administrador')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.users.index') }}">CRUD Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.instalaciones.index') }}">CRUD Instalaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.actividades.index') }}">CRUD Actividades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/estadisticasAdmin') }}">Estadísticas</a>
-                        </li>
-                    @endif
+                        @if(Auth::user()->rol == 'administrador')
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrador
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminMenu">
+                                    <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">CRUD Usuarios</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.instalaciones.index') }}">CRUD Instalaciones</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.actividades.index') }}">CRUD Actividades</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/estadisticasAdmin') }}">Estadísticas</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/actividadesCalendario') }}">Calendario Actividades</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/instalacionesAdmin') }}">Bloquear Instalaciones</a></li>
+                                </ul>
+                            </li>
+                        @endif
+                    
                         @if(Auth::check())
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
