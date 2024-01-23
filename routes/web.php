@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\InstalacionController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminInstalacionController;
+use App\Http\Controllers\AdminActividadController;
 use App\Http\Controllers\RecepcionistaUserController;
 use App\Http\Controllers\Auth\LoginController; // Importar el controlador LoginController
 use App\Http\Controllers\Auth\RegisterController; // Importar el controlador RegisterController
@@ -66,6 +68,26 @@ Route::prefix('admin/users')->middleware(['checkRole:administrador'])->group(fun
     Route::delete('/{id}/destroy', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
     Route::get('/{id}/validate', [AdminUserController::class, 'validar'])->name('admin.users.validate');
+});
+
+Route::prefix('admin/instalaciones')->middleware(['checkRole:administrador'])->group(function () {
+    Route::get('/', [AdminInstalacionController::class, 'index'])->name('admin.instalaciones.index');
+    Route::get('/create', [AdminInstalacionController::class, 'create'])->name('admin.instalaciones.create');
+    Route::post('/store', [AdminInstalacionController::class, 'store'])->name('admin.instalaciones.store');
+    Route::get('/{id}/edit', [AdminInstalacionController::class, 'edit'])->name('admin.instalaciones.edit');
+    Route::put('/{id}/update', [AdminInstalacionController::class, 'update'])->name('admin.instalaciones.update');
+    Route::delete('/{id}/destroy', [AdminInstalacionController::class, 'destroy'])->name('admin.instalaciones.destroy');
+    Route::get('/{id}', [AdminInstalacionController::class, 'show'])->name('admin.instalaciones.show');
+});
+
+Route::prefix('admin/actividades')->middleware(['checkRole:administrador'])->group(function () {
+    Route::get('/', [AdminActividadController::class, 'index'])->name('admin.actividades.index');
+    Route::get('/create', [AdminActividadController::class, 'create'])->name('admin.actividades.create');
+    Route::post('/store', [AdminActividadController::class, 'store'])->name('admin.actividades.store');
+    Route::get('/{id}/edit', [AdminActividadController::class, 'edit'])->name('admin.actividades.edit');
+    Route::put('/{id}/update', [AdminActividadController::class, 'update'])->name('admin.actividades.update');
+    Route::delete('/{id}/destroy', [AdminActividadController::class, 'destroy'])->name('admin.actividades.destroy');
+    Route::get('/{id}', [AdminActividadController::class, 'show'])->name('admin.actividades.show');
 });
 
 Route::prefix('recepcionista/users')->middleware(['checkRole:recepcionista'])->group(function () {

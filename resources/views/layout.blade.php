@@ -73,6 +73,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/actividades') }}">Actividades</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/tienda') }}">Tienda</a>
+                    </li>
 
                     @auth
                         <li class="nav-item dropdown">
@@ -82,7 +85,6 @@
                             <div class="dropdown-menu" aria-labelledby="reservasDropdown">
                                 <a class="dropdown-item" href="{{ route('reservasInstalaciones') }}">Instalaciones</a>
                                 <a class="dropdown-item" href="{{ route('reservas') }}">Actividades</a>
-                                <a class="dropdown-item" href="{{ route('tienda.index') }}">Tienda</a>
                             </div>
                         </li>
                     @endauth
@@ -100,6 +102,12 @@
                     @if(Auth::user()->rol == 'administrador')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">CRUD Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.instalaciones.index') }}">CRUD Instalaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.actividades.index') }}">CRUD Actividades</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/estadisticasAdmin') }}">Estadísticas</a>
