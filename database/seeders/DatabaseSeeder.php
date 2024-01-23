@@ -116,5 +116,16 @@ class DatabaseSeeder extends Seeder
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
         ]);
+
+        Actividad::create([
+            'instalacion_id' => 1,
+            'nombre' => 'Tenis',
+            'precio' => 25.00,
+            'fechaI' => '2024-01-24 09:00',
+            'fechaFin' => '2024-01-24 11:00',
+            'user_id' => '2',
+            'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
+            'urlphoto' => 'tenis.png',
+        ]);
     }
 }
