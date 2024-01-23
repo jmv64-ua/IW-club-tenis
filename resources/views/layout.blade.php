@@ -76,9 +76,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/instalaciones') }}">Listado de Instalaciones</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/tienda') }}">Tienda</a>
-                    </li>
 
                     @auth
                         <li class="nav-item dropdown">
@@ -90,6 +87,9 @@
                                 <a class="dropdown-item" href="{{ route('reservas') }}">Actividades</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/tienda') }}">Tienda</a>
+                    </li>
                     @endauth
 
                     @guest
