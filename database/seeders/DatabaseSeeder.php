@@ -85,14 +85,14 @@ class DatabaseSeeder extends Seeder
         $instalacion = new Instalacion();
         $instalacion->tipo_instalacion= "Pista de tenis";
         $instalacion->aforo= 8;
-        $instalacion->urlphoto= null;
+        $instalacion->urlphoto= 'tenis.png';
         $instalacion->save();
 
         // INSTALACION
         $instalacion = new Instalacion();
         $instalacion->tipo_instalacion= "Pista de pádel";
         $instalacion->aforo= 4;
-        $instalacion->urlphoto= null;
+        $instalacion->urlphoto= 'tenis.png';
         $instalacion->save();
 
         Actividad::create([
