@@ -134,7 +134,8 @@ class AdminUserController extends Controller
         $contadoresReservasActividades = Reserva::select('actividad_id', DB::raw('count(*) as total_reservas_actividad'))
         ->with('actividad') // Cargar detalles de la actividad
         ->groupBy('actividad_id')
-        ->get();
+        ->get(); 
+        
 
 
         // Puedes pasar tanto los contadores de reservas como los usuarios con más reservas y los contadores de reservas de actividades a la vista

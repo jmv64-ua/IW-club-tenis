@@ -45,23 +45,28 @@ class ActividadController extends Controller
     }
 
     public function ActividadesReservas(){
-        $query = Actividad::all();
-    
-        $actividades = $query;
-    
-        $allactivities =[];
-        foreach ($actividades as $actividad){
-            $allactivities[]=[
-                'id' => $actividad->id,  // Agregar el campo id
-                'title' => $actividad->nombre,
-                'start' =>  $actividad->fechaI,
-                'end' => $actividad->fechaFin,
-            ];
-        };
-    
-        return view ('reservas', [
-            'actividades' => $allactivities
-        ]);
+
+        if (Auth::check()) {
+            $query = Actividad::all();
+        
+            $actividades = $query;
+        
+            $allactivities =[];
+            foreach ($actividades as $actividad){
+                $allactivities[]=[
+                    'id' => $actividad->id,  // Agregar el campo id
+                    'title' => $actividad->nombre,
+                    'start' =>  $actividad->fechaI,
+                    'end' => $actividad->fechaFin,
+                ];
+            };
+        
+            return view ('reservas', [
+                'actividades' => $allactivities
+            ]);
+        }else{
+            return redirect()->route('login');
+        }
     }    
 
 

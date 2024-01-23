@@ -6,12 +6,22 @@ use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Actividad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller {
     public function reservar($id) {
+        
         try {
             $user = auth()->user();
+            
+            // Comprueba si el usuario ya tiene una reserva para esta actividad
+            $reservaExistente = Reserva::where('user_id', $user->id)
+            ->where('actividad_id', $id)
+            ->first();
 
+            if ($reservaExistente) {
+                return response()->json(['message' => 'Ya tienes una reserva para esta actividad']);
+            }
     
             // Crea una nueva reserva con los atributos adicionales
             $reserva = new Reserva([
@@ -57,48 +67,63 @@ class ReservaController extends Controller {
     }
 
     public function reservarInstalacion($id, Request $request)
-    {
-        try {
-            $user = auth()->user();
-            $fecha = $request->input('fecha');
-    
-            // Verificar si hay reservas existentes en la instalación para la misma hora o dos horas siguientes
-            $reservasExisten = Reserva::where('instalacion_id', $id)
-                ->where('fecha_reserva', '>=', $fecha)
-                ->where('fecha_reserva', '<=', now()->addHours(2))
-                ->exists();
-    
-            if ($reservasExisten) {
-                return response()->json(['message' => 'Instalacion ya reservada']);
+        {
+            try {
+                $user = auth()->user();
+                $fecha = $request->input('fecha');
+
+                // Verificar si el usuario ya tiene una reserva para esta instalación
+                $reservaInstalacionExistente = Reserva::where('user_id', $user->id)
+                    ->where('instalacion_id', $id)
+                    ->first();
+
+                if ($reservaInstalacionExistente) {
+                    return response()->json(['message' => 'Ya tienes una reserva para esta instalación']);
+                }
+
+                // Verificar si hay reservas existentes en la instalación para la misma hora o las dos horas siguientes
+                $reservasExisten = Reserva::where('instalacion_id', $id)
+                    ->where('fecha_reserva', '>=', $fecha)
+                    ->where('fecha_reserva', '<=', now()->addHours(2))
+                    ->exists();
+
+                if ($reservasExisten) {
+                    return response()->json(['message' => 'La instalación ya está reservada en este horario']);
+                }
+
+                // Crea una nueva reserva con los atributos adicionales
+                $reserva = new Reserva([
+                    'fecha_alta' => now(),
+                    'fecha_reserva' => $fecha,
+                    'instalacion_id' => $id,
+                ]);
+
+                $reserva->user_id = auth()->id();
+
+                // Guarda la reserva en la base de datos
+                $user->reservas()->saveMany([$reserva]);
+
+                return response()->json(['message' => 'Reserva de instalación exitosa']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
             }
-    
-            // Crea una nueva reserva con los atributos adicionales
-            $reserva = new Reserva([
-                'fecha_alta' => now(),
-                'fecha_reserva' => $fecha,
-            ]);
-    
-            $reserva->user_id = auth()->id();
-            $reserva->instalacion_id = $id;
-    
-            // Guarda la reserva en la base de datos
-            $user->reservas()->saveMany([$reserva]);
-    
-            return response()->json(['message' => 'Reserva de instalación exitosa']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
         }
-    }
+
     
 
     public function historialReservas(User $user)
     {
-         // Obtén el usuario autenticado
-         $user = auth()->user();
 
-         $reservas = $user->reservas()->with('actividad')->get();
+        if(Auth::check()){
+            // Obtén el usuario autenticado
+            $user = auth()->user();
 
-        return view('historialReservas', compact('reservas'));
+            $reservas = $user->reservas()->with('actividad')->get();
+
+            return view('historialReservas', compact('reservas'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
 }

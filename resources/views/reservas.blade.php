@@ -9,6 +9,10 @@
         <strong>Error:</strong> No hay suficiente aforo en la instalación.
     </div>
 
+    <div id="mensajeReservaDuplicada" class="alert alert-warning" style="display: none;">
+        <strong>Aviso:</strong> Ya has reservado esta actividad.
+    </div>
+
     <div id="calendar"></div>
     <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -61,6 +65,11 @@
                         setTimeout(function() {
                             $('#mensajeAforoCompleto').fadeOut();
                         }, 4000);
+                    } else if (response.message === "Ya tienes una reserva para esta actividad") {
+                        $('#mensajeReservaDuplicada').fadeIn();
+                        setTimeout(function() {
+                            $('#mensajeReservaDuplicada').fadeOut();
+                        }, 4000);
                     }
                 },
                 error: function(error) {
@@ -73,8 +82,8 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
-                slotMinTime:'07:00',
-                slotMaxTime:'22:00',
+                slotMinTime: '07:00',
+                slotMaxTime: '22:00',
                 events: @json($actividades),
                 eventClick: function(info) {
                     currentEvent = info.event;

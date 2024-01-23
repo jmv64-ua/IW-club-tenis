@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Instalacion;
 use App\Models\Actividad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstalacionController extends Controller
 {
@@ -81,8 +82,11 @@ class InstalacionController extends Controller
 
     public function ReservasInstalaciones()
     {
-        // No es necesario realizar ninguna lógica aquí, solo renderiza la vista
-        return view ('reservasInstalaciones');
+        if(Auth::check()){
+            return view ('reservasInstalaciones');
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function AsignarInstalacion(Request $request)
