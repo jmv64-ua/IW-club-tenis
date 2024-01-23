@@ -1,72 +1,165 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
-        <h2>Estadísticas</h2>
+<div class="container">
+    <h2>Estadísticas</h2>
 
-        {{-- Agrega un selector de Bootstrap --}}
-        <div class="mb-3">
-            <label for="tipoEstadistica" class="form-label">Selecciona el tipo de estadística:</label>
-            <select class="form-select" id="tipoEstadistica">
-                <option value="todos">Todos</option>
-                <option value="reservas">Reservas de instalaciones</option>
-                <option value="usuarios">Usuarios más activos</option> {{-- Nueva opción --}}
-                {{-- Puedes agregar más opciones según tus necesidades --}}
-            </select>
-        </div>
-
-        {{-- Agrega un contenedor para la gráfica --}}
-        <div id="graficaContainer" style="display: none;">
-            <canvas id="graficaReservas"></canvas>
-        </div>
-
-        {{-- Agrega un contenedor para la gráfica de usuarios más activos --}}
-        <div id="graficaUsuariosContainer" style="display: none;">
-            <canvas id="graficaUsuarios"></canvas>
-        </div>
-
+    <div class="mb-3">
+        <label for="tipoEstadistica" class="form-label">Selecciona el tipo de estadística:</label>
+        <select class="form-select" id="tipoEstadistica" onchange="mostrarGrafico()">
+            <option value="reservas">Reservas de instalaciones</option>
+            <option value="usuarios">Usuarios más activos</option>
+            <option value="tercera">Reservas de actividades</option>
+        </select>
     </div>
 
-    {{-- Agrega el script para inicializar la gráfica --}}
+    <div class="mb-4">
+        <canvas id="graficaReservas" class="grafica"></canvas>
+        <canvas id="graficaUsuarios" class="grafica d-none"></canvas>
+        <canvas id="graficaTercera" class="grafica d-none"></canvas>
+    </div>
+</div>
+
+<script>
+    function mostrarGrafico() {
+        var tipoEstadistica = document.getElementById("tipoEstadistica").value;
+        var graficas = document.getElementsByClassName("grafica");
+
+        for (var i = 0; i < graficas.length; i++) {
+            graficas[i].classList.add("d-none");
+        }
+
+        if (tipoEstadistica === "reservas") {
+            document.getElementById("graficaReservas").classList.remove("d-none");
+        } else if (tipoEstadistica === "usuarios") {
+            document.getElementById("graficaUsuarios").classList.remove("d-none");
+        } else if (tipoEstadistica === "tercera") {
+            document.getElementById("graficaTercera").classList.remove("d-none");
+        }
+    }
+</script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // ... (código previo)
-
             var myChartReservas = null;
-    var myChartUsuarios = null;
+            var myChartUsuarios = null;
+            var myChartTercera = null;
 
-    // Agrega lógica para mostrar/ocultar el gráfico según la selección del selector
-    var tipoEstadisticaSelect = document.getElementById('tipoEstadistica');
-    var graficaContainer = document.getElementById('graficaContainer');
-    var graficaUsuariosContainer = document.getElementById('graficaUsuariosContainer');
+            // Inicializa los gráficos al cargar la página
+            initReservasChart();
+            initUsuariosChart();
+            initTerceraChart();
 
-    tipoEstadisticaSelect.addEventListener('change', function () {
-        // Destruir gráficos existentes antes de inicializar uno nuevo
-        if (myChartReservas) {
-            myChartReservas.destroy();
-        }
-        if (myChartUsuarios) {
-            myChartUsuarios.destroy();
-        }
+            // Agrega lógica para mostrar/ocultar el gráfico según la selección del selector
+            var tipoEstadisticaSelect = document.getElementById('tipoEstadistica');
 
-        if (tipoEstadisticaSelect.value === 'reservas') {
-            graficaContainer.style.display = 'block';
-            graficaUsuariosContainer.style.display = 'none';
+            tipoEstadisticaSelect.addEventListener('change', function () {
+                // Destruye gráficos existentes antes de inicializar uno nuevo
+                if (myChartReservas) {
+                    myChartReservas.destroy();
+                }
+                if (myChartUsuarios) {
+                    myChartUsuarios.destroy();
+                }
+                if (myChartTercera) {
+                    myChartTercera.destroy();
+                }
 
-            var ctxReservas = document.getElementById('graficaReservas').getContext('2d');
-            var labelsReservas = @json($contadoresReservas->pluck('instalacion.tipo_instalacion'));
-            var dataReservas = @json($contadoresReservas->pluck('total_reservas'));
+                // Inicializa el gráfico correspondiente a la selección
+                if (tipoEstadisticaSelect.value === 'reservas') {
+                    initReservasChart();
+                } else if (tipoEstadisticaSelect.value === 'usuarios') {
+                    initUsuariosChart();
+                } else if (tipoEstadisticaSelect.value === 'tercera') {
+                    initTerceraChart();
+                }
+            });
 
-            myChartReservas = new Chart(ctxReservas, {
+            // Función para inicializar el gráfico de reservas
+            function initReservasChart() {
+                var ctxReservas = document.getElementById('graficaReservas').getContext('2d');
+                var labelsReservas = @json($contadoresReservas->pluck('instalacion.tipo_instalacion'));
+                var dataReservas = @json($contadoresReservas->pluck('total_reservas'));
+
+                myChartReservas = new Chart(ctxReservas, {
+                    type: 'bar',
+                    data: {
+                        labels: labelsReservas,
+                        datasets: [{
+                            label: 'Número de Reservas',
+                            data: dataReservas,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                stepSize: 1,
+                                callback: function (value) {
+                                    if (value % 1 === 0) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Función para inicializar el gráfico de usuarios
+            function initUsuariosChart() {
+                var ctxUsuarios = document.getElementById('graficaUsuarios').getContext('2d');
+                var labelsUsuarios = @json($usuariosConMasReservas->pluck('name'));
+                var dataUsuarios = @json($usuariosConMasReservas->pluck('total_reservas'));
+
+                myChartUsuarios = new Chart(ctxUsuarios, {
+                    type: 'bar',
+                    data: {
+                        labels: labelsUsuarios,
+                        datasets: [{
+                            label: 'Número de Reservas',
+                            data: dataUsuarios,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                stepSize: 1,
+                                callback: function (value) {
+                                    if (value % 1 === 0) {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Función para inicializar el tercer gráfico
+            function initTerceraChart() {
+            var ctxTercera = document.getElementById('graficaTercera').getContext('2d');
+            var labelsTercera = @json($contadoresReservasActividades->pluck('actividad.nombre'));
+            var dataTercera = @json($contadoresReservasActividades->pluck('total_reservas_actividad'));
+
+            myChartTercera = new Chart(ctxTercera, {
                 type: 'bar',
                 data: {
-                    labels: labelsReservas,
+                    labels: labelsTercera,
                     datasets: [{
-                        label: 'Número de Reservas',
-                        data: dataReservas,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        label: 'Total de Reservas por Actividad',
+                        data: dataTercera,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -74,57 +167,17 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            stepSize: 1, // Configura el tamaño del paso para que vaya de 1 en 1
+                            stepSize: 1,
                             callback: function (value) {
                                 if (value % 1 === 0) {
-                                    return value; // Muestra el valor si es un número entero
+                                    return value;
                                 }
                             }
                         }
                     }
                 }
             });
-        } else if (tipoEstadisticaSelect.value === 'usuarios') {
-            graficaContainer.style.display = 'none';
-            graficaUsuariosContainer.style.display = 'block';
-
-            // Lógica para inicializar el gráfico de usuarios más activos
-            var ctxUsuarios = document.getElementById('graficaUsuarios').getContext('2d');
-            var labelsUsuarios = @json($usuariosConMasReservas->pluck('name'));
-            var dataUsuarios = @json($usuariosConMasReservas->pluck('total_reservas'));
-
-            myChartUsuarios = new Chart(ctxUsuarios, {
-                type: 'bar',
-                data: {
-                    labels: labelsUsuarios,
-                    datasets: [{
-                        label: 'Número de Reservas',
-                        data: dataUsuarios,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            stepSize: 1, // Configura el tamaño del paso para que vaya de 1 en 1
-                            callback: function (value) {
-                                if (value % 1 === 0) {
-                                    return value; // Muestra el valor si es un número entero
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        } else {
-            graficaContainer.style.display = 'none';
-            graficaUsuariosContainer.style.display = 'none';
         }
-    });
-});
-
+        });
     </script>
 @endsection
