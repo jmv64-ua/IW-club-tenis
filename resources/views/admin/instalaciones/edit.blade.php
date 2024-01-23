@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h1>Editar Instalción</h1>
+    <h1>Editar Instalación</h1>
     <form action="{{ route('admin.instalaciones.update', $instalacion->id) }}" method="post">
         @csrf
         @method('PUT')

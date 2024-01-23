@@ -68,6 +68,7 @@ Route::prefix('admin/users')->middleware(['checkRole:administrador'])->group(fun
     Route::delete('/{id}/destroy', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
     Route::get('/{id}/validate', [AdminUserController::class, 'validar'])->name('admin.users.validate');
+    Route::get('/{id}/block', [AdminUserController::class, 'bloquear'])->name('admin.users.bloquear');
 });
 
 Route::prefix('admin/instalaciones')->middleware(['checkRole:administrador'])->group(function () {
