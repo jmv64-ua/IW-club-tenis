@@ -46,7 +46,7 @@
                     <label for="duracion" class="form-label">duracion</label>
                     <select class="form-select" id="duracion" name="duracion">
                         <option value="1">1 hora</option>
-                        <option value="1.5">1 hora y media</option>
+                        
                         <option value="2">2 horas</option>
                     </select>
                 </div>

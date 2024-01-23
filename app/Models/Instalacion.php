@@ -9,6 +9,18 @@ class Instalacion extends Model
 {
     use HasFactory;
     protected $table = 'instalaciones';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'tipo_instalacion',
+        'aforo',
+        'bloqueado',
+        'urlphoto'
+    ];
             
     public function reserva()
     {
