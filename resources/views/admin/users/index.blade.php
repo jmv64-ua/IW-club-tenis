@@ -30,6 +30,13 @@
                         @if(!$user->Validado)
                             <a href="{{ route('admin.users.validate', $user->id) }}" class="btn btn-primary">Validar</a>
                         @endif
+                        <a href="{{ route('admin.users.bloquear', $user->id) }}" class="btn btn-warning">
+                            @if(!$user->bloqueado)
+                                Bloquear
+                            @else
+                                Desbloquear
+                            @endif
+                        </a>
                     </td>
                 </tr>
             @endforeach

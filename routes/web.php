@@ -55,10 +55,7 @@ Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
 Route::put('/user',[UserController::class, 'Usuarioedit'])->name('Usuarioedit');
 
 Route::get('/tienda', [APIController::class, 'obtenerProductos'])->name('tienda.index');
-/*
-Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
-Route::get('/admin/users/{id}', [AdminUserController::class, 'validar'])->name('admin.users.validar');
-*/
+
 Route::prefix('admin/users')->middleware(['checkRole:administrador'])->group(function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('admin.users.index');
     Route::get('/create', [AdminUserController::class, 'create'])->name('admin.users.create');
@@ -68,6 +65,7 @@ Route::prefix('admin/users')->middleware(['checkRole:administrador'])->group(fun
     Route::delete('/{id}/destroy', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
     Route::get('/{id}/validate', [AdminUserController::class, 'validar'])->name('admin.users.validate');
+    Route::get('/{id}/block', [AdminUserController::class, 'bloquear'])->name('admin.users.bloquear');
 });
 
 Route::prefix('admin/instalaciones')->middleware(['checkRole:administrador'])->group(function () {

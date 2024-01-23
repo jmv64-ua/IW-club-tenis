@@ -83,6 +83,16 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
+    public function bloquear($id)
+    {
+        $user = User::findOrFail($id);
+        $user->bloqueado = !$user->bloqueado;
+
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado correctamente.');
+    }
+
     private function validateUser(Request $request, $userId = null)
     {
         $rules = [
