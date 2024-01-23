@@ -60,19 +60,65 @@
                 <a class="btn btn-primary" href="{{ url('/reservas/' . auth()->user()->id) }}">Mis reservas</a>
             </div>
 
-            <form id="editForm" enctype="multipart/form-data" method="Post" action="{{ route('Usuarioedit') }}" style="display: none;">
+            <form id="editForm" enctype="multipart/form-data" method="POST" action="{{ route('Usuarioedit') }}" style="display: none;">
                 @csrf
                 @method('PUT')
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <strong>Email:</strong>
-                        <input type="text" class="form-control" name="email" value="{{ $usuario->email }}">
-                    </li>
-                    <!-- ... (Resto del formulario de edición) ... -->
-                </ul>
+                
+                <div class="row">
+                    <!-- Primera columna -->
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Email:</strong>
+                                <input type="text" class="form-control" name="email" value="{{ $usuario->email }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Dirección:</strong>
+                                <input type="text" class="form-control" name="direccion" value="{{ $usuario->direccion }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Código Postal:</strong>
+                                <input type="text" class="form-control" name="codigo_postal" value="{{ $usuario->codigo_postal }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Teléfono:</strong>
+                                <input type="text" class="form-control" name="telefono" value="{{ $usuario->telefono }}">
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Segunda columna -->
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Descripción:</strong>
+                                <input type="text" class="form-control" name="descripcion" value="{{ $usuario->descripcion }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Resumen:</strong>
+                                <input type="text" class="form-control" name="resumen" value="{{ $usuario->resumen }}">
+                            </li>
+                            <li class="list-group-item">
+                                <strong for="imagen" class="form-label">Imagen:</strong>
+                                <input type="file" class="form-control" name="imagen" accept="image/png">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Cambiar contraseña:</strong>
+                                <input type="password" class="form-control" name="password">
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Repite Nueva contraseña:</strong>
+                                <input type="password" class="form-control" name="Rpassword">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            
+                <!-- Botones fuera de las columnas -->
                 <button type="submit" class="btn btn-primary" id="saveChanges">Guardar Cambios</button>
                 <a class="btn btn-info" id="SeeData">Ver Datos</a>
             </form>
+            
         </div>
     </div>
 </div>
