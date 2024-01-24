@@ -50,8 +50,6 @@ Route::get('/reservas', [ActividadController::class, 'ActividadesReservas'])->na
 Route::post('/reservar/{id}', [ReservaController::class, 'reservar'])->name('reservar');
 Route::post('/reservarInstalacion/{id}', [ReservaController::class, 'reservarInstalacion'])->name('reservarInstalacion');
 Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->name('historialReservas');
-Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
-
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
 Route::get('/recargarSaldo',[PagosController::class, 'PasarelaDePago'])->name('PasarelaDePago');
 Route::post('/recargarSaldo',[PagosController::class, 'post'])->name('recargarSaldo');
