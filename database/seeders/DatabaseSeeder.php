@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrador',
             'email' => 'admin@example.com',
             'password' => Hash::make('123'),
-            'saldo' => 100.00,
+            'saldo' => 40.00,
             'direccion' => 'Dirección del Administrador',
             'codigo_postal' => '12345',
             'telefono' => '123-456-7890',

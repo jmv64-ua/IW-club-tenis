@@ -13,6 +13,10 @@
         <strong>Aviso:</strong> Ya has reservado esta actividad.
     </div>
 
+    <div id="mensajeSaldoInsuficiente" class="alert alert-danger" style="display: none;">
+        <strong>Error:</strong> Saldo insuficiente para realizar la reserva.
+    </div>
+
     <div id="calendar"></div>
     <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -69,6 +73,11 @@
                         $('#mensajeReservaDuplicada').fadeIn();
                         setTimeout(function() {
                             $('#mensajeReservaDuplicada').fadeOut();
+                        }, 4000);
+                    } else if (response.message === "Saldo insuficiente") {
+                        $('#mensajeSaldoInsuficiente').fadeIn();
+                        setTimeout(function() {
+                            $('#mensajeSaldoInsuficiente').fadeOut();
                         }, 4000);
                     }
                 },

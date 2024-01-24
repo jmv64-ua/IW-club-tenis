@@ -17,6 +17,11 @@
         <strong>Aviso:</strong> Ya tienes una reserva para esta instalación.
     </div>
 
+    <!-- Mensaje de saldo insuficiente -->
+    <div id="mensajeSaldoInsuficiente" class="alert alert-danger" style="display: none;">
+        <strong>Error:</strong> Saldo insuficiente para realizar la reserva.
+    </div>
+
     <h1>Lista de Instalaciones</h1>
     
     <!-- Lista de instalaciones -->
@@ -70,6 +75,8 @@
                         $('#mensajeInstalacionYaReservada').fadeIn().delay(4000).fadeOut();
                     } else if (response.message === "Ya tienes una reserva para esta instalación") {
                         $('#mensajeInstalacionReservadaPorUsuario').fadeIn().delay(4000).fadeOut();
+                    } else if (response.message === "Saldo insuficiente") {
+                        $('#mensajeSaldoInsuficiente').fadeIn().delay(4000).fadeOut();
                     }
                 },
                 error: function(error) {
