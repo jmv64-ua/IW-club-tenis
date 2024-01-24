@@ -136,7 +136,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-02-01 16:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Descripción de la Actividad Manual 1.',
-            'urlphoto' => 'url/photo/actividad1.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 2
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-02-05 12:00',
             'user_id' => 2, // Cambia según el usuario deseado
             'descripcion' => 'Descripción de la Actividad Manual 2.',
-            'urlphoto' => 'url/photo/actividad2.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 3
@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-02-10 18:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Descripción de la Actividad Manual 3.',
-            'urlphoto' => 'url/photo/actividad3.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 4
@@ -172,7 +172,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-02-15 14:00',
             'user_id' => 2, // Cambia según el usuario deseado
             'descripcion' => 'Descripción de la Actividad Manual 4.',
-            'urlphoto' => 'url/photo/actividad4.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 5
@@ -184,7 +184,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-02-20 10:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Descripción de la Actividad Manual 5.',
-            'urlphoto' => 'url/photo/actividad5.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         Actividad::create([
@@ -195,7 +195,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-01-14 16:00',
             'user_id' => 2, // Cambia según el usuario deseado
             'descripcion' => 'Disfruta de una relajante clase de yoga.',
-            'urlphoto' => 'url/photo/yoga.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 2
@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-01-15 12:00',
             'user_id' => 2, // Cambia según el usuario deseado
             'descripcion' => 'Juega un emocionante partido de fútbol con amigos.',
-            'urlphoto' => 'url/photo/futbol.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 3
@@ -219,7 +219,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-01-16 18:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Aprende nuevos movimientos en una clase de baile divertida.',
-            'urlphoto' => 'url/photo/baile.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 4
@@ -231,7 +231,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-01-18 14:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Sesión de entrenamiento funcional para mejorar tu condición física.',
-            'urlphoto' => 'url/photo/entrenamiento.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
 
         // Actividad 5
@@ -243,7 +243,7 @@ class DatabaseSeeder extends Seeder
             'fechaFin' => '2024-01-20 10:00',
             'user_id' => 3, // Cambia según el usuario deseado
             'descripcion' => 'Participa en una emocionante carrera de running.',
-            'urlphoto' => 'url/photo/running.jpg',
+            'urlphoto' => 'tenis.png',
         ]);
     }
 }
