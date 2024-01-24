@@ -59,6 +59,9 @@
             <div class="mt-3">
                 <a class="btn btn-primary" href="{{ url('/reservas/' . auth()->user()->id) }}">Mis reservas</a>
             </div>
+            <div class="mt-3">
+                <a class="btn btn-primary" href="{{ url('/recargarSaldo') }}">Recargar Saldo</a>
+            </div>
 
             <form id="editForm" enctype="multipart/form-data" method="POST" action="{{ route('Usuarioedit') }}" style="display: none;">
                 @csrf

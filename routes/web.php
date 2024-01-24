@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisterController; // Importar el controlador Reg
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PagosController;
 use App\Http\Controllers\APIController;
 use App\Models\Instalacion;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,8 @@ Route::get('/reservas/{id}', [ReservaController::class, 'historialReservas'])->n
 Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
 
 Route::get('/user',[UserController::class, 'Usuario'])->name('Usuario');
+Route::get('/recargarSaldo',[PagosController::class, 'PasarelaDePago'])->name('PasarelaDePago');
+Route::post('/recargarSaldo',[PagosController::class, 'post'])->name('recargarSaldo');
 Route::put('/user',[UserController::class, 'Usuarioedit'])->name('Usuarioedit');
 
 Route::get('/tienda', [APIController::class, 'obtenerProductos'])->name('tienda.index');
