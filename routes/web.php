@@ -42,6 +42,7 @@ Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('ins
 Route::get('/instalaciones/{id}', [InstalacionController::class, 'show'])->name('instalaciones.show');
 Route::get('/reservasInstalaciones', [InstalacionController::class, 'ReservasInstalaciones'])->name('reservasInstalaciones');
 Route::get('/asignarInstalacion', [InstalacionController::class, 'AsignarInstalacion'])->name('asignarInstalacion');
+Route::get('/actividades-por-usuario', [ActividadController::class, 'actividadesPorUsuario']);
 
 
 Route::post('/actividadNew/nueva', [ActividadController::class, 'NuevaActividad'])->name('createActividad');
@@ -106,10 +107,14 @@ Route::prefix('monitor')->group(function () {
     // ... otras rutas específicas para monitores
 });
 
+Route::middleware(['checkRole:administrador,monitor'])->group(function () {
+    Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
+    // Otras rutas específicas para administradores y monitores
+});
+
 Route::middleware(['checkRole:administrador'])->group(function () {
     // Rutas para usuarios con el rol 'admin'
     Route::put('/instalaciones/{id}', [InstalacionController::class, 'bloquear'])->name('instalaciones.bloquear');
-    Route::get('/actividadesCalendario', [ActividadController::class, 'ActividadesCalendario'])->name('ActividadesCalendario');
     Route::get('/instalacionesAdmin', [InstalacionController::class, 'indexAdmin'])->name('instalaciones.InstalacionesAdmin');
     Route::get('/actividadNew/nueva', [ActividadController::class, 'AsignarActividad'])->name('actividad.nueva');
     Route::get('/estadisticasAdmin', [AdminUserController::class, 'estadisticasAdmin'])->name('estadisticasAdmin');

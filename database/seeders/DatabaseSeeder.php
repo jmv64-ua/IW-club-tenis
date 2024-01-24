@@ -46,18 +46,18 @@ class DatabaseSeeder extends Seeder
             'urlphoto' => 'url/photo/admin.jpg',
         ]);
         User::create([
-            'name' => 'monitor',
-            'email' => 'monitor@monitor.com',
-            'password' => Hash::make('monitor'),
+            'name' => 'recepcionista',
+            'email' => 'rece@rece.com',
+            'password' => Hash::make('password'),
             'saldo' => 100.00,
-            'direccion' => 'Dirección del monitor',
+            'direccion' => 'Dirección del recepcionista',
             'codigo_postal' => '12345',
             'telefono' => '123-456-7890',
-            'rol' => 'monitor',
+            'rol' => 'recepcionista',
             'Validado' => true,
-            'descripcion' => 'Descripción del Administrador',
+            'descripcion' => 'Descripción del recep',
             'bloqueado' => false,
-            'resumen' => 'Resumen del Administrador',
+            'resumen' => 'Resumen del Recepcionista',
             'urlphoto' => 'url/photo/admin.jpg',
         ]);
 
@@ -126,6 +126,124 @@ class DatabaseSeeder extends Seeder
             'user_id' => '2',
             'descripcion' => 'Clases de tenis para todos los públicos en distintos horarios',
             'urlphoto' => 'tenis.png',
+        ]);
+
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Futbol',
+            'precio' => 30.00,
+            'fechaI' => '2024-02-01 14:00',
+            'fechaFin' => '2024-02-01 16:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Descripción de la Actividad Manual 1.',
+            'urlphoto' => 'url/photo/actividad1.jpg',
+        ]);
+
+        // Actividad 2
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Actividad Manual 2',
+            'precio' => 25.00,
+            'fechaI' => '2024-02-05 10:00',
+            'fechaFin' => '2024-02-05 12:00',
+            'user_id' => 2, // Cambia según el usuario deseado
+            'descripcion' => 'Descripción de la Actividad Manual 2.',
+            'urlphoto' => 'url/photo/actividad2.jpg',
+        ]);
+
+        // Actividad 3
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Actividad Manual 3',
+            'precio' => 20.00,
+            'fechaI' => '2024-02-10 16:00',
+            'fechaFin' => '2024-02-10 18:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Descripción de la Actividad Manual 3.',
+            'urlphoto' => 'url/photo/actividad3.jpg',
+        ]);
+
+        // Actividad 4
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Actividad Manual 4',
+            'precio' => 35.00,
+            'fechaI' => '2024-02-15 12:00',
+            'fechaFin' => '2024-02-15 14:00',
+            'user_id' => 2, // Cambia según el usuario deseado
+            'descripcion' => 'Descripción de la Actividad Manual 4.',
+            'urlphoto' => 'url/photo/actividad4.jpg',
+        ]);
+
+        // Actividad 5
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Actividad Manual 5',
+            'precio' => 40.00,
+            'fechaI' => '2024-02-20 08:00',
+            'fechaFin' => '2024-02-20 10:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Descripción de la Actividad Manual 5.',
+            'urlphoto' => 'url/photo/actividad5.jpg',
+        ]);
+
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Clase de Yoga',
+            'precio' => 30.00,
+            'fechaI' => '2024-01-14 14:00',
+            'fechaFin' => '2024-01-14 16:00',
+            'user_id' => 2, // Cambia según el usuario deseado
+            'descripcion' => 'Disfruta de una relajante clase de yoga.',
+            'urlphoto' => 'url/photo/yoga.jpg',
+        ]);
+
+        // Actividad 2
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Partido de Fútbol',
+            'precio' => 25.00,
+            'fechaI' => '2024-01-15 10:00',
+            'fechaFin' => '2024-01-15 12:00',
+            'user_id' => 2, // Cambia según el usuario deseado
+            'descripcion' => 'Juega un emocionante partido de fútbol con amigos.',
+            'urlphoto' => 'url/photo/futbol.jpg',
+        ]);
+
+        // Actividad 3
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Clase de Baile',
+            'precio' => 20.00,
+            'fechaI' => '2024-01-16 16:00',
+            'fechaFin' => '2024-01-16 18:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Aprende nuevos movimientos en una clase de baile divertida.',
+            'urlphoto' => 'url/photo/baile.jpg',
+        ]);
+
+        // Actividad 4
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Entrenamiento Funcional',
+            'precio' => 35.00,
+            'fechaI' => '2024-01-18 12:00',
+            'fechaFin' => '2024-01-18 14:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Sesión de entrenamiento funcional para mejorar tu condición física.',
+            'urlphoto' => 'url/photo/entrenamiento.jpg',
+        ]);
+
+        // Actividad 5
+        Actividad::create([
+            'instalacion_id' => 1, // Cambia según la instalación deseada
+            'nombre' => 'Carrera de Running',
+            'precio' => 40.00,
+            'fechaI' => '2024-01-20 08:00',
+            'fechaFin' => '2024-01-20 10:00',
+            'user_id' => 3, // Cambia según el usuario deseado
+            'descripcion' => 'Participa en una emocionante carrera de running.',
+            'urlphoto' => 'url/photo/running.jpg',
         ]);
     }
 }

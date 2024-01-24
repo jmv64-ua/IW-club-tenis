@@ -78,6 +78,18 @@
                     </li>
 
                     @auth
+
+                    @if(Auth::user()->rol == 'recepcionista')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('recepcionista.users.index') }}">Altas de usuario</a>
+                        </li>
+                    @endif
+
+                    @if(Auth::user()->rol == 'monitor' || Auth::user()->rol == 'administrador')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/actividadesCalendario') }}">Calendario de Actividades</a>
+                        </li>
+                    @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" id="reservasDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Reservas
